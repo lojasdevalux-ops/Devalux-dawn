@@ -1,0 +1,483 @@
+/*
+ * Época-style header.
+ * Loaded by sections/header.liquid (present on every page), so it also carries
+ * the favorite-button (product card) and favorites-page styles.
+ *
+ * Brand accent is centralized here:
+ */
+.header--epoca {
+  --epoca-accent: #e6007e;
+  --epoca-search-bg: #f0f0f0;
+  --epoca-text: #20242c;
+  --epoca-muted: #6b7177;
+}
+
+/* =====================================================================
+   DESKTOP LAYOUT  (logo | search | actions  /  nav nav nav)
+   ===================================================================== */
+.header.header--epoca {
+  display: grid;
+  grid-template-areas:
+    'logo search account actions'
+    'nav nav nav nav';
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  column-gap: 2rem;
+  row-gap: 1.2rem;
+  align-items: center;
+}
+
+.header--epoca .epoca-logo-heading,
+.header--epoca > .epoca-logo {
+  grid-area: logo;
+  justify-self: start;
+}
+.header--epoca .epoca-search {
+  grid-area: search;
+}
+.header--epoca .epoca-account {
+  grid-area: account;
+  justify-self: end;
+}
+.header--epoca .epoca-actions {
+  grid-area: actions;
+}
+.header--epoca .epoca-nav {
+  grid-area: nav;
+}
+
+/* ----------------------------- Logo --------------------------------- */
+.epoca-logo-heading {
+  margin: 0;
+  line-height: 1;
+}
+.epoca-logo {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  text-decoration: none;
+}
+.epoca-logo__text {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--epoca-accent);
+  white-space: nowrap;
+}
+.epoca-logo .header__heading-logo-wrapper {
+  width: auto;
+}
+
+/* --------------------------- Search bar ----------------------------- */
+.epoca-search {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+.epoca-search__form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 4.4rem;
+  padding: 0 0.5rem 0 1.8rem;
+  background: var(--epoca-search-bg);
+  border: 1px solid transparent;
+  border-radius: 2.4rem;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.epoca-search__form:focus-within {
+  background: #fff;
+  border-color: var(--epoca-accent);
+  box-shadow: 0 0 0 0.3rem rgba(230, 0, 126, 0.12);
+}
+.epoca-search__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--epoca-text);
+  font-size: 1.5rem;
+  box-shadow: none;
+}
+.epoca-search__input:focus {
+  outline: none;
+  box-shadow: none;
+}
+.epoca-search__input::placeholder {
+  color: var(--epoca-muted);
+  opacity: 1;
+}
+.epoca-search__reset,
+.epoca-search__submit {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+.epoca-search__reset {
+  width: 3rem;
+  height: 3rem;
+  color: var(--epoca-muted);
+}
+.epoca-search__reset.hidden {
+  display: none;
+}
+.epoca-search__reset svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+.epoca-search__submit {
+  width: 3.6rem;
+  height: 3.6rem;
+  color: #4a4f55;
+}
+.epoca-search__submit:hover {
+  color: var(--epoca-accent);
+}
+.epoca-search__submit svg {
+  width: 2rem;
+  height: 2rem;
+  fill: none;
+}
+.epoca-search__submit svg path {
+  fill: currentColor;
+}
+
+/* Predictive search (autocomplete) dropdown */
+.header--epoca predictive-search {
+  display: block;
+  position: relative;
+}
+.header--epoca .epoca-search .predictive-search {
+  top: calc(100% + 0.6rem);
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-radius: 0.8rem;
+}
+
+/* --------------------------- Actions -------------------------------- */
+.epoca-actions.header__icons {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  justify-self: end;
+  padding: 0;
+}
+
+/* Login */
+.epoca-account {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  color: var(--epoca-text);
+}
+.epoca-account__icon {
+  flex: 0 0 auto;
+  width: 2.6rem;
+  height: 2.6rem;
+  color: var(--epoca-text);
+}
+.epoca-account__icon svg {
+  width: 2.6rem;
+  height: 2.6rem;
+}
+.epoca-account__text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.epoca-account__line1 {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+.epoca-account__line2 {
+  font-size: 1.2rem;
+  color: var(--epoca-muted);
+}
+.epoca-account:hover .epoca-account__line2 {
+  text-decoration: underline;
+}
+.epoca-account__caret {
+  display: flex;
+  align-items: center;
+}
+.epoca-account__caret svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Favorites */
+.epoca-fav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  color: var(--epoca-text);
+}
+.epoca-fav:hover {
+  color: var(--epoca-accent);
+}
+.epoca-fav__icon svg {
+  width: 2.4rem;
+  height: 2.4rem;
+  fill: currentColor;
+}
+.epoca-fav__count {
+  position: absolute;
+  top: 0.1rem;
+  right: 0.1rem;
+  min-width: 1.8rem;
+  height: 1.8rem;
+  padding: 0 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--epoca-accent);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 1rem;
+}
+
+/* Cart */
+.epoca-cart {
+  color: var(--epoca-text);
+}
+.epoca-cart:hover {
+  color: var(--epoca-accent);
+}
+
+/* ----------------------------- Nav row ------------------------------ */
+.epoca-nav {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  margin: 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid rgba(var(--color-foreground), 0.08);
+}
+.epoca-nav__all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--epoca-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.epoca-nav__all:hover {
+  color: var(--epoca-accent);
+}
+.epoca-nav__all-icon {
+  display: inline-flex;
+  align-items: center;
+}
+.epoca-nav .header__inline-menu {
+  display: block;
+  margin: 0;
+}
+.epoca-nav .header__menu-item {
+  color: var(--epoca-text);
+}
+.epoca-nav .header__menu-item:hover {
+  color: var(--epoca-accent);
+}
+
+/* =====================================================================
+   MOBILE FALLBACK  (basic, will be refined in the mobile step)
+   ===================================================================== */
+@media screen and (max-width: 989px) {
+  /* Row 1: [menu + login]  [logo centered]  [favorites + cart]
+     Row 2: full-width search */
+  .header.header--epoca {
+    grid-template-areas:
+      'burger account logo actions'
+      'search search search search';
+    grid-template-columns: auto auto 1fr auto;
+    column-gap: 0.6rem;
+    row-gap: 1rem;
+  }
+  .header--epoca header-drawer {
+    grid-area: burger;
+    justify-self: start;
+    margin-left: 0;
+  }
+  .header--epoca .epoca-account {
+    grid-area: account;
+    justify-self: start;
+  }
+  .header--epoca .epoca-logo-heading,
+  .header--epoca > .epoca-logo {
+    grid-area: logo;
+    justify-self: center;
+  }
+  .header--epoca .epoca-logo__text {
+    font-size: 2.2rem;
+  }
+  /* Login is icon-only on mobile */
+  .header--epoca .epoca-account__text,
+  .header--epoca .epoca-account__caret {
+    display: none;
+  }
+  .header--epoca .epoca-account__icon,
+  .header--epoca .epoca-account__icon svg {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .header--epoca .epoca-actions.header__icons {
+    grid-area: actions;
+    justify-self: end;
+    gap: 0.4rem;
+  }
+  .header--epoca .epoca-nav {
+    display: none;
+  }
+}
+
+/* =====================================================================
+   FAVORITE BUTTON (on product cards)
+   ===================================================================== */
+.favorite-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  color: #565c63;
+}
+.favorite-button svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  width: 2.2rem;
+  height: 2.2rem;
+}
+.favorite-button:hover {
+  color: var(--epoca-accent, #e6007e);
+}
+.favorite-button.is-active {
+  color: var(--epoca-accent, #e6007e);
+}
+.favorite-button.is-active svg {
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* Overlay on the product image (top-right) */
+.favorite-button--card {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.favorite-button--card:hover {
+  transform: scale(1.08);
+  background: #fff;
+}
+.card__media {
+  position: relative;
+}
+
+/* =====================================================================
+   FAVORITES PAGE
+   ===================================================================== */
+.epoca-favorites__empty {
+  text-align: center;
+  color: var(--epoca-muted, #6b7177);
+  padding: 4rem 0;
+  font-size: 1.6rem;
+}
+.epoca-favorites__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.6rem;
+}
+@media screen and (min-width: 750px) {
+  .epoca-favorites__grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem;
+  }
+}
+.epoca-fav-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  background: #fff;
+}
+.epoca-fav-card__media {
+  display: block;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  margin-bottom: 1rem;
+}
+.epoca-fav-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.epoca-fav-card__remove {
+  position: absolute;
+  top: 1.8rem;
+  right: 1.8rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+.epoca-fav-card__title {
+  font-size: 1.4rem;
+  color: var(--epoca-text, #20242c);
+  text-decoration: none;
+  margin-bottom: 0.4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.epoca-fav-card__price {
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.epoca-fav-card__btn {
+  margin-top: auto;
+  text-align: center;
+  padding: 0.9rem 1rem;
+  border-radius: 2.4rem;
+  background: var(--epoca-accent, #e6007e);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+.epoca-fav-card__btn:hover {
+  opacity: 0.92;
+}

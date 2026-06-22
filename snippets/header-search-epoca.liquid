@@ -1,0 +1,75 @@
+{% comment %}
+  Renders an Época-style persistent search bar for the header.
+
+  - A rounded gray "pill" with the search input.
+  - A magnifying-glass submit button on the right (inside the pill).
+  - Keeps Shopify predictive search (autocomplete).
+
+  Keeps the markup the predictive-search / search-form web components expect
+  (input[type="search"][name="q"], button[type="reset"], [data-predictive-search]).
+
+  Accepts:
+  - input_id: {String} Unique id for the search input element (required)
+
+  Usage:
+  {% render 'header-search-epoca', input_id: 'Search-Epoca' %}
+{% endcomment %}
+
+{%- if settings.predictive_search_enabled -%}
+  <predictive-search class="epoca-search" data-loading-text="{{ 'accessibility.loading' | t }}">
+{%- else -%}
+  <search-form class="epoca-search">
+{%- endif -%}
+  <form action="{{ routes.search_url }}" method="get" role="search" class="epoca-search__form">
+    <input
+      class="epoca-search__input"
+      id="{{ input_id }}"
+      type="search"
+      name="q"
+      value="{{ search.terms | escape }}"
+      placeholder="Oi, o que você procura hoje? :)"
+      {%- if settings.predictive_search_enabled -%}
+        role="combobox"
+        aria-expanded="false"
+        aria-owns="predictive-search-results"
+        aria-controls="predictive-search-results"
+        aria-haspopup="listbox"
+        aria-autocomplete="list"
+        autocorrect="off"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+      {%- endif -%}
+    >
+    <label class="visually-hidden" for="{{ input_id }}">Pesquisar</label>
+    <input type="hidden" name="options[prefix]" value="last">
+
+    <button
+      type="reset"
+      class="epoca-search__reset{% if search.terms == blank %} hidden{% endif %}"
+      aria-label="{{ 'general.search.reset' | t }}"
+    >
+      <span class="svg-wrapper">
+        {{- 'icon-close-small.svg' | inline_asset_content -}}
+      </span>
+    </button>
+
+    <button type="submit" class="epoca-search__submit" aria-label="Pesquisar">
+      <span class="svg-wrapper">
+        {{- 'icon-search.svg' | inline_asset_content -}}
+      </span>
+    </button>
+  </form>
+
+  {%- if settings.predictive_search_enabled -%}
+    <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+      {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+    </div>
+
+    <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+  {%- endif -%}
+{%- if settings.predictive_search_enabled -%}
+  </predictive-search>
+{%- else -%}
+  </search-form>
+{%- endif -%}

@@ -1,0 +1,31 @@
+{% comment %}
+  Renders a heart "favorite" toggle button for a product.
+  Powered by assets/favorites.js (localStorage wishlist).
+
+  Accepts:
+  - product: {Object} Product Liquid object (required)
+  - class: {String} Extra CSS class (optional)
+
+  Usage:
+  {% render 'favorite-button', product: card_product %}
+{% endcomment %}
+
+{%- if product and product != empty -%}
+  {%- assign fav_image = '' -%}
+  {%- if product.featured_media -%}
+    {%- assign fav_image = product.featured_media | image_url: width: 400 -%}
+  {%- endif -%}
+  {%- capture fav_json -%}{"id":{{ product.id | json }},"handle":{{ product.handle | json }},"title":{{ product.title | json }},"url":{{ product.url | json }},"image":{{ fav_image | json }},"price":{{ product.price | json }},"available":{{ product.available | json }}}{%- endcapture -%}
+  <button
+    type="button"
+    class="favorite-button{% if class %} {{ class }}{% endif %}"
+    aria-pressed="false"
+    aria-label="Adicionar aos favoritos"
+    title="Adicionar aos favoritos"
+    data-favorite="{{ fav_json | escape }}"
+  >
+    <span class="svg-wrapper">
+      <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 5.24 8.515 3.773a4.433 4.433 0 0 0-6.21 0 4.293 4.293 0 0 0 0 6.128L10 17.495l7.695-7.593a4.293 4.293 0 0 0 0-6.128 4.433 4.433 0 0 0-6.21 0z"/></svg>
+    </span>
+  </button>
+{%- endif -%}
