@@ -230,7 +230,9 @@
 .epoca-fav:hover {
   color: var(--epoca-accent);
 }
-.epoca-fav__icon svg {
+/* Higher specificity than Dawn's `.header__icon .icon { fill: none }` */
+.epoca-fav .epoca-fav__icon svg,
+.epoca-fav .epoca-fav__icon .icon-heart {
   width: 2.4rem;
   height: 2.4rem;
   fill: currentColor;
@@ -409,6 +411,26 @@
 .epoca-favorites--auto {
   padding-top: 1rem;
   padding-bottom: 5rem;
+}
+
+/* Favorites page title (default page template): left-aligned, a bit smaller,
+   and aligned with the favorites grid below it. */
+.is-favorites-page .main-page-title {
+  text-align: left;
+  font-size: 2.8rem;
+}
+.is-favorites-page .page-width--narrow {
+  max-width: var(--page-width);
+  padding: 0 1.5rem;
+}
+@media screen and (min-width: 750px) {
+  .is-favorites-page .page-width--narrow {
+    padding: 0 5rem;
+  }
+}
+.epoca-favorites__heading {
+  text-align: left;
+  font-size: 2.8rem;
 }
 .epoca-favorites__empty {
   text-align: center;

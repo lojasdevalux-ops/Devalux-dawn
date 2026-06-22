@@ -174,6 +174,7 @@
   });
 
   function init() {
+    if (isFavoritesPage()) document.body.classList.add('is-favorites-page');
     refreshCounts();
     refreshButtons();
     renderFavoritesPage();
