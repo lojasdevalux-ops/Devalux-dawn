@@ -43,6 +43,7 @@
 
   <product-component view-event-payload="{{ card_product | standard_event_data: 'view', context: product_view_context | escape }}">
     <div class="card-wrapper product-card-wrapper underline-links-hover">
+      {%- render 'favorite-button', product: card_product, class: 'favorite-button--card' -%}
       <div
         class="
           card card--{{ settings.card_style }}
@@ -106,7 +107,6 @@
                   >
                 {%- endif -%}
               </div>
-              {%- render 'favorite-button', product: card_product, class: 'favorite-button--card' -%}
             </div>
           {%- endif -%}
           <div class="card__content">

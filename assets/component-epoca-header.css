@@ -380,12 +380,17 @@
   stroke: currentColor;
 }
 
-/* Overlay on the product image (top-right) */
+/* Overlay on the product card (top-right), above the card's full-card link.
+   The card link uses z-index:1 and .card__media creates a z-index:0 stacking
+   context, so the button lives directly on .card-wrapper with a higher z-index. */
+.card-wrapper {
+  position: relative;
+}
 .favorite-button--card {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  z-index: 3;
+  z-index: 4;
   width: 3.6rem;
   height: 3.6rem;
   border-radius: 50%;
@@ -396,9 +401,6 @@
 .favorite-button--card:hover {
   transform: scale(1.08);
   background: #fff;
-}
-.card__media {
-  position: relative;
 }
 
 /* =====================================================================
