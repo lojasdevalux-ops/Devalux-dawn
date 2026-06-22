@@ -404,6 +404,10 @@
 /* =====================================================================
    FAVORITES PAGE
    ===================================================================== */
+.epoca-favorites--auto {
+  padding-top: 1rem;
+  padding-bottom: 5rem;
+}
 .epoca-favorites__empty {
   text-align: center;
   color: var(--epoca-muted, #6b7177);

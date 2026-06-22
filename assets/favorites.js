@@ -86,8 +86,32 @@
     }
   }
 
+  function isFavoritesPage() {
+    const handle = window.FAVORITES_PAGE_HANDLE || 'favoritos';
+    const segment = window.location.pathname.replace(/\/+$/, '').split('/').pop();
+    return segment === handle;
+  }
+
+  // Returns the grid element. If the page doesn't provide one (default page
+  // template, no custom template selected) but we ARE on the favorites page,
+  // inject the container automatically into the main content area.
+  function ensureGrid() {
+    let grid = document.getElementById('FavoritesGrid');
+    if (grid) return grid;
+    if (!isFavoritesPage()) return null;
+
+    const host = document.getElementById('MainContent') || document.querySelector('main') || document.body;
+    const wrap = document.createElement('div');
+    wrap.className = 'page-width epoca-favorites epoca-favorites--auto';
+    wrap.innerHTML =
+      '<p id="FavoritesEmpty" class="epoca-favorites__empty">Você ainda não adicionou nenhum produto aos favoritos. Toque no coração dos produtos para salvá-los aqui.</p>' +
+      '<div id="FavoritesGrid" class="epoca-favorites__grid"></div>';
+    host.appendChild(wrap);
+    return document.getElementById('FavoritesGrid');
+  }
+
   function renderFavoritesPage() {
-    const grid = document.getElementById('FavoritesGrid');
+    const grid = ensureGrid();
     if (!grid) return;
     const empty = document.getElementById('FavoritesEmpty');
     const list = read();
