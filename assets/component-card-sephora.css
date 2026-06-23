@@ -1,0 +1,347 @@
+/* =====================================================================
+   SEPHORA-STYLE PRODUCT CARD + CAROUSEL  (cmx)
+   Applies to every product card rendered by snippets/card-product.liquid
+   and to the featured-collection slider marked with .cmx-sephora-slider.
+   ===================================================================== */
+
+/* ---------- Card frame ---------------------------------------------- */
+.product-card-wrapper.card-wrapper {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.8rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+@media (hover: hover) {
+  .product-card-wrapper.card-wrapper:hover {
+    border-color: #e7e7e7;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.08);
+  }
+}
+
+/* Strip Dawn's default card chrome so the product sits on clean white. */
+.product-card-wrapper .card,
+.product-card-wrapper .card__inner {
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-card-wrapper .card {
+  position: relative;
+}
+
+.product-card-wrapper .card__inner {
+  position: relative;
+  background-color: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* ---------- Media: contain the (often transparent) product shot ----- */
+.product-card-wrapper .card__media {
+  margin: 0;
+}
+
+.product-card-wrapper .card__media .media {
+  background-color: #fff;
+}
+
+.product-card-wrapper .card__media img {
+  object-fit: contain !important;
+  padding: 1.2rem;
+}
+
+/* Sephora keeps the image static on hover (no zoom, no image swap). */
+@media (hover: hover) {
+  .product-card-wrapper .card__media .media > img {
+    transition: none;
+  }
+  .product-card-wrapper.card-wrapper:hover .card__media .media > img {
+    transform: none;
+  }
+}
+
+/* ---------- Badges (top-left) --------------------------------------- */
+.cmx-card__badges {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  pointer-events: none;
+}
+
+.cmx-badge {
+  display: inline-block;
+  padding: 0.5rem 0.7rem;
+  background: #000;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Favorite heart (plain outline, no circle) --------------- */
+.product-card-wrapper .favorite-button--card {
+  top: 0.4rem;
+  right: 0.4rem;
+  width: 3.4rem;
+  height: 3.4rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-card-wrapper .favorite-button--card:hover {
+  background: transparent;
+  transform: scale(1.1);
+}
+
+.product-card-wrapper .favorite-button--card svg {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+/* ---------- "Ver mais" CTA (slides up on hover / fixed on touch) ---- */
+.cmx-card__cta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4.4rem;
+  background: #d6001c;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.cmx-card__cta:hover,
+.cmx-card__cta:focus {
+  color: #fff;
+}
+
+@media (hover: hover) {
+  .product-card-wrapper.card-wrapper:hover .cmx-card__cta {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* No-hover devices (touch / mobile): always visible. */
+@media (hover: none) {
+  .cmx-card__cta {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Tablet / mobile: no hover, so keep the CTA permanently visible. */
+@media (max-width: 989px) {
+  .cmx-card__cta {
+    transform: translateY(0);
+    opacity: 1;
+    height: 4rem;
+    font-size: 1.4rem;
+  }
+}
+
+/* ---------- Text content -------------------------------------------- */
+.product-card-wrapper .card__content {
+  padding: 1.2rem 0.2rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.product-card-wrapper .card__information {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.cmx-card__brand {
+  margin: 0 0 0.4rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #000;
+}
+
+.product-card-wrapper .card__heading.cmx-card__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.cmx-card__title a {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  color: #2b2b2b;
+  text-decoration: none;
+}
+
+.cmx-card__options {
+  margin: 0 0 1rem;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  color: #8a8a8a;
+}
+
+.cmx-card__price {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cmx-card__compare {
+  font-size: 1.4rem;
+  color: #8a8a8a;
+  text-decoration: line-through;
+}
+
+.cmx-card__price-current {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #000;
+}
+
+.cmx-card__price--sold-out .cmx-card__price-current {
+  color: #8a8a8a;
+}
+
+@media (max-width: 749px) {
+  .cmx-card__price-current {
+    font-size: 2rem;
+  }
+}
+
+/* =====================================================================
+   CAROUSEL  (.cmx-sephora-slider on the <slider-component>)
+   ===================================================================== */
+.cmx-sephora-slider {
+  position: relative;
+  display: block;
+}
+
+/* Hide the numeric "1 / 8" counter everywhere; we use arrows + dots. */
+.cmx-sephora-slider .slider-counter {
+  display: none;
+}
+
+/* Dots hidden by default (desktop); shown on mobile only. */
+.cmx-slider-dots {
+  display: none;
+}
+
+/* ---------- Desktop (>=990px): contained, symmetric 4-up with arrows */
+@media (min-width: 990px) {
+  /* Contain the carousel to the page width (no full-bleed peek) so an
+     exact number of cards shows. The 5rem side padding matches Dawn's
+     .page-width so cards line up with the section title, and it doubles as
+     the gutter where the round arrows sit (never overflowing the viewport). */
+  .collection slider-component.cmx-sephora-slider {
+    --desktop-margin-left-first-item: 0rem;
+    box-sizing: border-box;
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: 5rem;
+  }
+
+  .cmx-sephora-slider .slider-buttons {
+    margin: 0;
+    min-height: 0;
+  }
+
+  .cmx-sephora-slider .slider-button {
+    position: absolute;
+    top: 33%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 4.6rem;
+    height: 4.6rem;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.14);
+    color: #000;
+    transition: opacity 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .cmx-sephora-slider .slider-button:hover:not([disabled]) {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .cmx-sephora-slider .slider-button--prev {
+    left: 0.3rem;
+  }
+
+  .cmx-sephora-slider .slider-button--next {
+    right: 0.3rem;
+  }
+
+  .cmx-sephora-slider .slider-button .svg-wrapper {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .cmx-sephora-slider .slider-button[disabled] {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+/* ---------- Tablet / mobile (<=989px): hide arrows, show dots -------- */
+@media (max-width: 989px) {
+  .cmx-sephora-slider .slider-button {
+    display: none;
+  }
+
+  .cmx-sephora-slider .slider-buttons {
+    margin: 0;
+  }
+
+  .cmx-slider-dots {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.8rem;
+  }
+
+  .cmx-slider-dots__dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #d2d2d2;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .cmx-slider-dots__dot--active {
+    background: #000;
+  }
+}
