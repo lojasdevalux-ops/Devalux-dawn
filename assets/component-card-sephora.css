@@ -126,6 +126,13 @@
 }
 
 /* ---------- "Ver mais" CTA (slides up on hover / fixed on touch) ---- */
+/* the product-form / form wrappers shouldn't take layout space — the button
+   itself is the absolutely-positioned overlay */
+.cmx-card__cta-form,
+.cmx-card__cta-form form {
+  display: contents;
+}
+
 .cmx-card__cta {
   position: absolute;
   left: 0;
@@ -136,8 +143,15 @@
   align-items: center;
   justify-content: center;
   height: 4.4rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
   background: #d6001c;
   color: #fff;
+  font-family: inherit;
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -145,6 +159,20 @@
   transform: translateY(100%);
   opacity: 0;
   transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.cmx-card__cta:hover {
+  background: #b00017;
+  color: #fff;
+}
+
+.cmx-card__cta--soldout {
+  background: #b3b3b3;
+  cursor: default;
+}
+
+.cmx-card__cta .loading__spinner {
+  position: absolute;
 }
 
 .cmx-card__cta:hover,

@@ -5,6 +5,8 @@
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card-sephora.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'cmx-card-slider.js' | asset_url }}" defer="defer"></script>
+{%- comment -%} Needed for the "Comprar agora" add-to-cart button on cards {%- endcomment -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}

@@ -134,14 +134,33 @@
             </div>
           {%- endif -%}
 
-          <a
-            href="{{ card_product.url }}"
-            class="cmx-card__cta"
-            tabindex="-1"
-            aria-hidden="true"
-          >
-            Ver mais
-          </a>
+          {%- if card_product.available -%}
+            {%- assign cmx_buy_id = 'cmx-buy-' | append: section_id | append: card_product.id -%}
+            <product-form class="cmx-card__cta-form" data-section-id="{{ section_id }}">
+              {%- form 'product',
+                card_product,
+                id: cmx_buy_id,
+                class: 'cmx-card__cta-formel',
+                novalidate: 'novalidate',
+                data-type: 'add-to-cart-form'
+              -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ card_product.selected_or_first_available_variant.id }}"
+                  class="product-variant-id"
+                >
+                <button type="submit" name="add" class="cmx-card__cta">
+                  <span>Comprar agora</span>
+                  {%- render 'loading-spinner' -%}
+                </button>
+              {%- endform -%}
+            </product-form>
+          {%- else -%}
+            <a href="{{ card_product.url }}" class="cmx-card__cta cmx-card__cta--soldout" tabindex="-1" aria-hidden="true">
+              {{ 'products.product.sold_out' | t }}
+            </a>
+          {%- endif -%}
         </div>
         <div class="card__content">
           <div class="card__information">
