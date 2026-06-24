@@ -449,24 +449,26 @@
   height: 1.7rem;
 }
 
-/* buy-buttons wrapper fills the rest of the pill */
+/* every wrapper stretches so the button fills the whole pill */
 .cmx-buy-row > div:last-child,
-.cmx-buy-row .product-form {
-  flex: 1 1 auto;
-  display: flex;
-  height: 100%;
-}
-
+.cmx-buy-row .product-form,
+.cmx-buy-row .form,
 .cmx-buy-row .product-form__buttons {
   flex: 1 1 auto;
   display: flex;
+  width: 100%;
   height: 100%;
   max-width: none;
 }
 
 .cmx-buy-row .product-form__submit {
   flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   margin: 0;
+  padding: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
@@ -474,6 +476,7 @@
   font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 0.01em;
+  text-align: center;
   box-shadow: none;
   min-height: 0;
   height: 100%;

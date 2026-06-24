@@ -149,14 +149,6 @@
                 {%- when 'price' -%}
                   {%- liquid
                     assign cmx_price = product.selected_or_first_available_variant.price | default: product.price
-                    assign cmx_n = cmx_price | divided_by: 2000
-                    if cmx_n > 10
-                      assign cmx_n = 10
-                    endif
-                    if cmx_n < 1
-                      assign cmx_n = 1
-                    endif
-                    assign cmx_installment = cmx_price | divided_by: cmx_n
                     assign cmx_points = cmx_price | divided_by: 100
                   -%}
                   <div class="cmx-price-row" {{ block.shopify_attributes }}>
@@ -169,9 +161,6 @@
                           price_class: 'price--large'
                         -%}
                       </div>
-                      {%- if cmx_n > 1 -%}
-                        <p class="cmx-installments">ou {{ cmx_n }}x de {{ cmx_installment | money }}</p>
-                      {%- endif -%}
                     </div>
                     {%- if section.settings.show_loyalty_points -%}
                       <div class="cmx-points">
@@ -791,14 +780,6 @@
       {%- comment -%} Mobile sticky add-to-cart bar {%- endcomment -%}
       {%- liquid
         assign cmx_sb_price = product.selected_or_first_available_variant.price | default: product.price
-        assign cmx_sb_n = cmx_sb_price | divided_by: 2000
-        if cmx_sb_n > 10
-          assign cmx_sb_n = 10
-        endif
-        if cmx_sb_n < 1
-          assign cmx_sb_n = 1
-        endif
-        assign cmx_sb_installment = cmx_sb_price | divided_by: cmx_sb_n
         assign cmx_sb_points = cmx_sb_price | divided_by: 100
       -%}
       <div class="cmx-sticky-bar">
@@ -807,9 +788,6 @@
             <span class="cmx-sticky-bar__points">+ {{ cmx_sb_points }} pts</span>
           {%- endif -%}
           <span class="cmx-sticky-bar__price">{{ cmx_sb_price | money }}</span>
-          {%- if cmx_sb_n > 1 -%}
-            <span class="cmx-sticky-bar__sub">ou {{ cmx_sb_n }}x de {{ cmx_sb_installment | money }}</span>
-          {%- endif -%}
         </div>
         <button type="button" class="cmx-sticky-bar__btn">
           {{ 'products.product.add_to_cart' | t }}
