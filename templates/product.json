@@ -42,10 +42,6 @@
             "show_inventory_quantity": true
           }
         },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
@@ -60,7 +56,6 @@
         "price",
         "variant_picker",
         "inventory",
-        "quantity_selector",
         "buy_buttons"
       ],
       "settings": {
