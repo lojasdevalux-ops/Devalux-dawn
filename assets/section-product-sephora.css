@@ -152,21 +152,24 @@
   }
 }
 
-/* ---------- Thumbnails: small Sephora-style squares ---------------- */
+/* ---------- Thumbnails: small squares, packed tight on the left ----- */
+/* Dawn lays thumbnails out as a grid of repeat(N, 1fr) on desktop, which
+   spreads a few thumbnails across the whole column. Force a tight flex row. */
 .product__media-wrapper .thumbnail-list {
-  gap: 1rem;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.8rem;
+  grid-gap: 0.8rem;
 }
 
+.product__media-wrapper .thumbnail-list__item,
 .product__media-wrapper .thumbnail-list__item.slider__slide {
-  width: 8rem !important;
-  flex: 0 0 8rem;
+  width: 7.6rem !important;
+  flex: 0 0 7.6rem;
+  margin: 0;
 }
 
-.product__media-wrapper .thumbnail {
-  border-radius: 8px;
-}
-
-.product__media-wrapper .thumbnail-list__item .thumbnail.global-media-settings--no-shadow,
 .product__media-wrapper .thumbnail {
   border: 1px solid var(--cmx-line);
   border-radius: 8px;
