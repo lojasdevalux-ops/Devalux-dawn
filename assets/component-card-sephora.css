@@ -317,6 +317,11 @@
     padding-inline: 5rem;
   }
 
+  /* exactly 4 full cards fill the row — no peek of the next card */
+  .cmx-sephora-slider .slider--desktop.grid--4-col-desktop .grid__item {
+    width: calc((100% - var(--grid-desktop-horizontal-spacing) * 3) / 4) !important;
+  }
+
   .cmx-sephora-slider .slider-buttons {
     margin: 0;
     min-height: 0;
@@ -327,18 +332,23 @@
     top: 33%;
     transform: translateY(-50%);
     z-index: 5;
-    width: 4.6rem;
-    height: 4.6rem;
-    border-radius: 50%;
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 1.4rem;
     background: #fff;
     border: 1px solid #e3e3e3;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.14);
-    color: #000;
-    transition: opacity 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 2px 14px rgba(0, 0, 0, 0.16);
+    color: #1a1a1a;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+      box-shadow 0.15s ease;
   }
 
+  /* black on hover, white chevron */
   .cmx-sephora-slider .slider-button:hover:not([disabled]) {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    background: #000;
+    border-color: #000;
+    color: #fff;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
   }
 
   .cmx-sephora-slider .slider-button--prev {
@@ -350,8 +360,8 @@
   }
 
   .cmx-sephora-slider .slider-button .svg-wrapper {
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 2rem;
+    height: 2rem;
   }
 
   .cmx-sephora-slider .slider-button[disabled] {
