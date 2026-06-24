@@ -242,8 +242,11 @@
   letter-spacing: -0.01em;
 }
 
-/* only the struck-through compare-at price is small + grey */
+/* only the struck-through compare-at price is small + grey.
+   The <s> itself carries .price-item, so use s.price-item to beat the
+   base `.price--large .price-item` (4rem) rule on specificity. */
 .product__info-container .price--large s,
+.product__info-container .price--large s.price-item,
 .product__info-container .price--large s .price-item {
   font-size: 1.8rem;
   font-weight: 400;
@@ -263,13 +266,12 @@
   gap: 0.2rem;
 }
 
-/* stack compare-at (struck, on top) above the current price.
-   Dawn forces `.price--on-sale .price__sale { display: initial; flex-direction: row }`
-   at equal specificity, so override with !important. */
-.product__info-container .price__sale,
-.product__info-container .price__regular {
-  display: flex !important;
-  flex-direction: column !important;
+/* stack compare-at (struck, on top) above the current price — ONLY when on
+   sale, and with higher specificity than Dawn's `.price--on-sale .price__sale`.
+   (Targeting .price__regular too would un-hide it and duplicate the price.) */
+.product__info-container .price--on-sale .price__sale {
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
   gap: 0.2rem;
 }
