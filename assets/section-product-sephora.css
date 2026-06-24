@@ -152,6 +152,20 @@
   }
 }
 
+/* Remove the border/shadow frame around the main product image */
+.product__media-wrapper .product-media-container.global-media-settings {
+  border: 0;
+}
+
+.product__media-wrapper .product-media-container.global-media-settings::after {
+  display: none;
+}
+
+/* Remove the zoom (magnifying-glass) icon overlay */
+.product__media-wrapper .product__media-icon {
+  display: none;
+}
+
 /* ---------- Thumbnails: small squares, packed tight on the left ----- */
 /* Dawn lays thumbnails out as a grid of repeat(N, 1fr) on desktop, which
    spreads a few thumbnails across the whole column. Force a tight flex row. */
@@ -165,8 +179,8 @@
 
 .product__media-wrapper .thumbnail-list__item,
 .product__media-wrapper .thumbnail-list__item.slider__slide {
-  width: 7.6rem !important;
-  flex: 0 0 7.6rem;
+  width: 9rem !important;
+  flex: 0 0 9rem;
   margin: 0;
 }
 
@@ -176,7 +190,7 @@
 }
 
 .product__media-wrapper .thumbnail[aria-current] {
-  border: 2px solid var(--cmx-ink);
+  border: 1.5px solid var(--cmx-ink);
 }
 
 /* ---------- Brand (vendor) + title ---------------------------------- */
