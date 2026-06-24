@@ -234,12 +234,6 @@
     {%- comment -%} Navigation row: "Ver tudo" + menu {%- endcomment -%}
     {%- if section.settings.menu != blank -%}
       <nav class="epoca-nav" aria-label="{{ 'sections.header.menu' | t | default: 'Menu' }}">
-        <a href="{{ routes.collections_url }}" class="epoca-nav__all">
-          <span class="epoca-nav__all-icon" aria-hidden="true">
-            <svg viewBox="0 0 18 14" width="18" height="14" fill="none"><path d="M1 1h16M1 7h16M1 13h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          </span>
-          Ver tudo
-        </a>
         {%- liquid
           if section.settings.menu_type_desktop == 'dropdown'
             render 'header-dropdown-menu'
