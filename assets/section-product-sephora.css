@@ -65,13 +65,13 @@
 
 .cmx-pdp-badge {
   display: inline-block;
-  padding: 0.6rem 0.9rem;
+  padding: 0.7rem 1.1rem;
   background: #000;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 
@@ -129,22 +129,35 @@
 /* ---------- Brand (vendor) + title ---------------------------------- */
 .product__text.caption-with-letter-spacing,
 .product__text {
-  font-size: 2rem;
+  font-size: 3.6rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  line-height: 1.05;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   color: var(--cmx-ink);
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.6rem;
 }
 
 .product__title h1,
 .product__title .h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.4;
   letter-spacing: 0;
   color: #333;
-  margin: 0 0 1.6rem;
+  margin: 0 0 2.4rem;
+}
+
+@media screen and (max-width: 749px) {
+  .product__text.caption-with-letter-spacing,
+  .product__text {
+    font-size: 2.8rem;
+  }
+
+  .product__title h1,
+  .product__title .h1 {
+    font-size: 1.8rem;
+  }
 }
 
 /* ---------- Price + installments + points -------------------------- */
@@ -154,15 +167,22 @@
 }
 
 .product__info-container .price--large .price-item {
-  font-size: 3.2rem;
+  font-size: 4rem;
   font-weight: 700;
   color: var(--cmx-ink);
-  line-height: 1.1;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
 }
 
 .product__info-container .price--large .price-item--regular {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: var(--cmx-muted);
+}
+
+@media screen and (max-width: 749px) {
+  .product__info-container .price--large .price-item {
+    font-size: 3.2rem;
+  }
 }
 
 .product__info-container .price__container {
@@ -177,9 +197,9 @@
 }
 
 .cmx-installments {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: var(--cmx-ink);
-  margin: 0.4rem 0 0;
+  margin: 0.6rem 0 0;
 }
 
 /* Price + points sit side by side */
@@ -236,31 +256,82 @@
 .product-form__input.product-form__input--pill,
 .product-form__input.product-form__input--swatch {
   border: 1px solid var(--cmx-line);
-  border-radius: 12px;
-  padding: 1.6rem 1.8rem;
+  border-radius: 16px;
+  padding: 2.2rem 2.4rem;
   margin: 0 0 1.6rem;
+  max-width: none;
 }
 
 .product-form__input .form__label {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--cmx-ink);
-  margin-bottom: 1rem;
+  margin-bottom: 1.4rem;
 }
 
-/* pill option buttons as bordered selectable boxes */
-.product-form__input--pill input[type="radio"] + label {
-  border: 1px solid var(--cmx-line);
-  border-radius: 8px;
-  padding: 1rem 1.6rem;
+/* option values rendered as framed image thumbnails + size label.
+   Selectors mirror Dawn's `input[type='radio'] + label` specificity so the
+   default pill border / box-shadow / checked-fill are fully neutralised. */
+.product-form__input--pill {
+  display: block;
+}
+
+.product-form__input--pill input[type="radio"] + .cmx-variant-swatch {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 1.2rem 0.2rem 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  min-width: 0;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.product-form__input--pill input[type="radio"] + .cmx-variant-swatch::before {
+  display: none;
+}
+
+.product-form__input--pill input[type="radio"]:checked + .cmx-variant-swatch {
+  background: none;
   color: var(--cmx-ink);
-  min-width: 6rem;
 }
 
-.product-form__input--pill input[type="radio"]:checked + label {
+.cmx-variant-swatch__thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.6rem;
+  height: 6.6rem;
+  border: 1px solid var(--cmx-line);
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color 0.12s ease;
+}
+
+.cmx-variant-swatch__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.5rem;
+}
+
+.cmx-variant-swatch__label {
+  font-size: 1.3rem;
+  color: var(--cmx-ink);
+  line-height: 1.2;
+}
+
+.product-form__input--pill input[type="radio"]:checked + .cmx-variant-swatch .cmx-variant-swatch__thumb {
   border-color: var(--cmx-ink);
   border-width: 2px;
-  box-shadow: none;
+}
+
+.product-form__input--pill input[type="radio"].disabled + .cmx-variant-swatch {
+  opacity: 0.4;
 }
 
 /* ---------- Inventory / low stock ----------------------------------- */
@@ -280,7 +351,7 @@
   border-radius: 999px;
   overflow: hidden;
   margin: 0 0 1.6rem;
-  min-height: 5.4rem;
+  min-height: 6rem;
 }
 
 /* gray it out when the variant is sold out */
@@ -314,18 +385,18 @@
   border: 0;
   width: 4rem;
   font-weight: 700;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   text-align: center;
 }
 
 .cmx-buy-row .quantity__button {
   color: #fff;
-  width: 3.6rem;
+  width: 4rem;
 }
 
 .cmx-buy-row .quantity__button svg {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.7rem;
+  height: 1.7rem;
 }
 
 /* buy-buttons wrapper fills the rest of the pill */
@@ -348,10 +419,11 @@
   border-radius: 0;
   background: transparent;
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
   box-shadow: none;
-  min-height: 5.4rem;
+  min-height: 6rem;
 }
 
 .cmx-buy-row .product-form__submit:hover:not([disabled]) {

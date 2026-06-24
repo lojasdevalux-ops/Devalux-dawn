@@ -95,8 +95,19 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
-      {{ value -}}
+    <label for="{{ input_id }}" class="cmx-variant-swatch">
+      <span class="cmx-variant-swatch__thumb">
+        {%- if product.featured_media -%}
+          <img
+            src="{{ product.featured_media | image_url: width: 140 }}"
+            alt=""
+            width="64"
+            height="64"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </span>
+      <span class="cmx-variant-swatch__label">{{ value }}</span>
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
