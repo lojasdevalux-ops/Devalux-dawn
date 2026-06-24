@@ -32,8 +32,20 @@
   position: relative;
 }
 
+/* Equal-height cards. The grid/slide stretches every cell to the tallest
+   card, but product-component is display:block with no height, breaking the
+   chain so .card-wrapper{height:100%} can't fill the cell. Give it height so
+   the card fills, the price bottom-aligns (margin-top:auto) and the extra
+   space lands as a gap between "(X opções)" and the price. */
+.grid__item > product-component,
+.product-grid > li > product-component {
+  display: block;
+  height: 100%;
+}
+
 .product-card-wrapper .card__inner {
   position: relative;
+  flex: 0 0 auto;
   background-color: #fff;
   border-radius: 6px;
   overflow: hidden;
