@@ -263,6 +263,15 @@
   gap: 0.2rem;
 }
 
+/* stack compare-at (struck, on top) above the current price */
+.product__info-container .price__sale,
+.product__info-container .price__regular {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
 /* hide Dawn's Shop-Pay payment-terms widget (we render our own line) */
 .product__info-container .installment {
   display: none !important;
