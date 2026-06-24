@@ -139,6 +139,19 @@
   object-fit: contain;
 }
 
+/* Cap the main image height so the product sits in a tidy frame with
+   whitespace around it (Sephora-style), instead of filling the column.
+   Dawn's default lets it grow to (100vh - 400px) ~ 680px on tall screens. */
+.product__media-wrapper .product-media-container.constrain-height {
+  --constrained-height: 40rem;
+}
+
+@media screen and (max-width: 749px) {
+  .product__media-wrapper .product-media-container.constrain-height {
+    --constrained-height: 34rem;
+  }
+}
+
 /* ---------- Thumbnails: small Sephora-style squares ---------------- */
 .product__media-wrapper .thumbnail-list {
   gap: 1rem;
