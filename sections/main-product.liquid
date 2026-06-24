@@ -750,6 +750,35 @@
           </section>
         </div>
       </div>
+
+      {%- comment -%} Full-width Descrição (tabs on desktop / accordion on mobile) {%- endcomment -%}
+      {%- if product.description != blank -%}
+        {%- capture cmx_clipboard -%}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" width="22" height="22"><rect x="5" y="4" width="14" height="17" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 4.5h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-.5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>{%- endcapture -%}
+        <section class="cmx-pdp-tabs" data-cmx-tabs>
+          <div class="cmx-pdp-tabs__nav" role="tablist">
+            <button type="button" class="cmx-pdp-tab is-active" data-cmx-tab="0" role="tab" aria-selected="true">
+              <span class="cmx-pdp-tab__icon">{{ cmx_clipboard }}</span>
+              {{ 'products.product.description' | t }}
+            </button>
+          </div>
+          <div class="cmx-pdp-tabs__items">
+            <div class="cmx-pdp-tab-item is-active" data-cmx-item="0">
+              <button type="button" class="cmx-pdp-acc-head" data-cmx-acc="0" aria-expanded="true">
+                <span class="cmx-pdp-acc-head__label">
+                  <span class="cmx-pdp-tab__icon">{{ cmx_clipboard }}</span>
+                  {{ 'products.product.description' | t }}
+                </span>
+                <span class="cmx-pdp-acc-caret" aria-hidden="true"></span>
+              </button>
+              <div class="cmx-pdp-acc-panel">
+                <div class="cmx-pdp-rte rte">{{ product.description }}</div>
+                <button type="button" class="cmx-readmore" hidden>Mostrar Mais</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      {%- endif -%}
+
       {%- comment -%} Mobile sticky add-to-cart bar {%- endcomment -%}
       {%- liquid
         assign cmx_sb_price = product.selected_or_first_available_variant.price | default: product.price

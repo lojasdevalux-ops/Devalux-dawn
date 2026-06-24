@@ -393,9 +393,190 @@
 }
 
 /* =====================================================================
-   DESCRIPTION SECTION BELOW (tabs on desktop / accordion on mobile)
-   Styles the Dawn collapsible_tab blocks if used as a group.
+   DESCRIPTION (tabs on desktop / accordion on mobile) — full width
    ===================================================================== */
+.cmx-pdp-tabs {
+  margin-top: 2.4rem;
+}
+
+.cmx-pdp-tab__icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--cmx-ink);
+}
+
+.cmx-pdp-rte {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  color: #3a3a3a;
+}
+
+.cmx-pdp-rte > *:first-child {
+  margin-top: 0;
+}
+
+.cmx-readmore {
+  background: none;
+  border: 0;
+  padding: 0;
+  margin-top: 0.8rem;
+  color: #2f6fed;
+  font-weight: 700;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ----- Desktop: bordered card with a tab strip ----- */
+@media screen and (min-width: 750px) {
+  .cmx-pdp-tabs {
+    margin-top: 4rem;
+    border: 1px solid var(--cmx-line);
+    border-radius: 14px;
+    padding: 0.6rem 3rem 3rem;
+  }
+
+  .cmx-pdp-tabs__nav {
+    display: flex;
+    gap: 3.2rem;
+    border-bottom: 1px solid var(--cmx-line);
+    margin-bottom: 2.4rem;
+  }
+
+  .cmx-pdp-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 1.6rem 0;
+    margin-bottom: -1px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #b9b9b9;
+    border-bottom: 3px solid transparent;
+  }
+
+  .cmx-pdp-tab.is-active {
+    color: var(--cmx-ink);
+    border-bottom-color: #000;
+  }
+
+  .cmx-pdp-tab:not(.is-active) .cmx-pdp-tab__icon {
+    color: #b9b9b9;
+  }
+
+  .cmx-pdp-acc-head {
+    display: none;
+  }
+
+  .cmx-pdp-tab-item {
+    display: none;
+  }
+
+  .cmx-pdp-tab-item.is-active {
+    display: block;
+  }
+
+  .cmx-pdp-acc-panel {
+    display: block;
+  }
+
+  .cmx-readmore {
+    display: none;
+  }
+}
+
+/* ----- Mobile: stacked accordion ----- */
+.cmx-pdp-tabs__nav {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .cmx-pdp-tab-item {
+    border-top: 1px solid var(--cmx-line);
+  }
+
+  .cmx-pdp-tab-item:last-child {
+    border-bottom: 1px solid var(--cmx-line);
+  }
+
+  .cmx-pdp-acc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 1.8rem 0.2rem;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--cmx-ink);
+  }
+
+  .cmx-pdp-acc-head__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cmx-pdp-acc-caret {
+    position: relative;
+    flex: 0 0 auto;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 1.5px solid var(--cmx-ink);
+    border-radius: 50%;
+  }
+
+  .cmx-pdp-acc-caret::before,
+  .cmx-pdp-acc-caret::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--cmx-ink);
+  }
+
+  .cmx-pdp-acc-caret::before {
+    width: 1.2rem;
+    height: 1.6px;
+  }
+
+  .cmx-pdp-acc-caret::after {
+    width: 1.6px;
+    height: 1.2rem;
+  }
+
+  .cmx-pdp-acc-head[aria-expanded="true"] .cmx-pdp-acc-caret::after {
+    display: none;
+  }
+
+  .cmx-pdp-acc-panel {
+    display: none;
+    padding: 0 0.2rem 2rem;
+  }
+
+  .cmx-pdp-acc-head[aria-expanded="true"] + .cmx-pdp-acc-panel {
+    display: block;
+  }
+
+  .cmx-pdp-rte.is-clamped {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .cmx-pdp-rte.is-expanded {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+  }
+}
 
 /* ---------- Mobile sticky add-to-cart bar --------------------------- */
 .cmx-sticky-bar {

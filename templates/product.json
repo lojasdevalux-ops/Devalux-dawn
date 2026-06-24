@@ -71,8 +71,7 @@
         "variant_picker",
         "inventory",
         "quantity_selector",
-        "buy_buttons",
-        "description"
+        "buy_buttons"
       ],
       "settings": {
         "enable_sticky_info": true,
