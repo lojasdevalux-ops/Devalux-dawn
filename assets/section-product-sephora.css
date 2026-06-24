@@ -75,8 +75,16 @@
   text-transform: uppercase;
 }
 
-.cmx-share {
+/* ---------- Top-right actions: favorite + share -------------------- */
+.cmx-pdp-actions {
   flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cmx-share,
+.cmx-pdp-fav.favorite-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -87,37 +95,19 @@
   color: var(--cmx-ink);
   cursor: pointer;
   border-radius: 50%;
+  box-shadow: none;
 }
 
-.cmx-share:hover {
+.cmx-share:hover,
+.cmx-pdp-fav.favorite-button:hover {
   background: #f4f4f4;
+  transform: none;
 }
 
-.cmx-share svg {
-  width: 2.2rem;
-  height: 2.2rem;
-}
-
-/* ---------- Favorite heart over the media --------------------------- */
-.product__media-wrapper {
-  position: relative;
-}
-
-.cmx-pdp-fav.favorite-button {
-  position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-  z-index: 3;
-  width: 4.4rem;
-  height: 4.4rem;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-}
-
+.cmx-share svg,
 .cmx-pdp-fav.favorite-button svg {
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 2.3rem;
+  height: 2.3rem;
 }
 
 /* Keep the gallery product image clean and contained on white. */
@@ -174,8 +164,12 @@
   letter-spacing: -0.01em;
 }
 
-.product__info-container .price--large .price-item--regular {
+/* only the struck-through compare-at price is small + grey */
+.product__info-container .price--large s,
+.product__info-container .price--large s .price-item {
   font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0;
   color: var(--cmx-muted);
 }
 
@@ -351,7 +345,7 @@
   border-radius: 999px;
   overflow: hidden;
   margin: 0 0 1.6rem;
-  min-height: 6rem;
+  height: 5.4rem;
 }
 
 /* gray it out when the variant is sold out */
@@ -364,6 +358,7 @@
   margin: 0;
   display: flex;
   align-items: center;
+  height: 100%;
   border-right: 1px solid rgba(255, 255, 255, 0.45);
   padding: 0 0.4rem;
 }
@@ -375,8 +370,16 @@
 .cmx-buy-row .quantity {
   border: 0;
   background: transparent;
-  min-height: auto;
+  min-height: 0;
+  height: 100%;
   width: auto;
+  align-items: center;
+}
+
+/* kill Dawn's white pill background + border on the stepper */
+.cmx-buy-row .quantity::before,
+.cmx-buy-row .quantity::after {
+  display: none;
 }
 
 .cmx-buy-row .quantity__input {
@@ -404,11 +407,13 @@
 .cmx-buy-row .product-form {
   flex: 1 1 auto;
   display: flex;
+  height: 100%;
 }
 
 .cmx-buy-row .product-form__buttons {
   flex: 1 1 auto;
   display: flex;
+  height: 100%;
   max-width: none;
 }
 
@@ -419,11 +424,12 @@
   border-radius: 0;
   background: transparent;
   color: #fff;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   box-shadow: none;
-  min-height: 6rem;
+  min-height: 0;
+  height: 100%;
 }
 
 .cmx-buy-row .product-form__submit:hover:not([disabled]) {

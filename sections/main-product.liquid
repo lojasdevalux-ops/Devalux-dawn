@@ -86,7 +86,6 @@
       </nav>
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
-          {%- render 'favorite-button', product: product, class: 'cmx-pdp-fav' -%}
           {% render 'product-media-gallery', variant_images: variant_images %}
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -104,16 +103,26 @@
                   {%- endif -%}
                 {%- endfor -%}
               </div>
-              <button
-                type="button"
-                class="cmx-share"
-                title="Compartilhar"
-                aria-label="Compartilhar"
-                data-share-url="{{ product.url | prepend: request.origin }}"
-                data-share-title="{{ product.title | escape }}"
-              >
-                <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
-              </button>
+              <div class="cmx-pdp-actions">
+                {%- render 'favorite-button', product: product, class: 'cmx-pdp-fav' -%}
+                <button
+                  type="button"
+                  class="cmx-share"
+                  title="Compartilhar"
+                  aria-label="Compartilhar"
+                  data-share-url="{{ product.url | prepend: request.origin }}"
+                  data-share-title="{{ product.title | escape }}"
+                >
+                  <span class="svg-wrapper" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" focusable="false">
+                      <circle cx="18" cy="5" r="2.6" stroke="currentColor" stroke-width="1.7"/>
+                      <circle cx="6" cy="12" r="2.6" stroke="currentColor" stroke-width="1.7"/>
+                      <circle cx="18" cy="19" r="2.6" stroke="currentColor" stroke-width="1.7"/>
+                      <path d="m8.3 10.9 7.4-4.4M8.3 13.1l7.4 4.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </button>
+              </div>
             </div>
 
             {%- for block in section.blocks -%}
