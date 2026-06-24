@@ -75,7 +75,7 @@
   text-transform: uppercase;
 }
 
-/* ---------- Top-right actions: favorite + share -------------------- */
+/* ---------- Top-right share button --------------------------------- */
 .cmx-pdp-actions {
   flex: 0 0 auto;
   display: inline-flex;
@@ -83,8 +83,7 @@
   gap: 0.4rem;
 }
 
-.cmx-share,
-.cmx-pdp-fav.favorite-button {
+.cmx-share {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -98,22 +97,70 @@
   box-shadow: none;
 }
 
-.cmx-share:hover,
-.cmx-pdp-fav.favorite-button:hover {
+.cmx-share:hover {
   background: #f4f4f4;
-  transform: none;
 }
 
-.cmx-share svg,
-.cmx-pdp-fav.favorite-button svg {
+.cmx-share svg {
   width: 2.3rem;
   height: 2.3rem;
+}
+
+/* ---------- Favorite heart INSIDE the product image ---------------- */
+.product__media-wrapper {
+  position: relative;
+}
+
+.cmx-pdp-fav.favorite-button {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.6rem;
+  z-index: 4;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: none;
+  color: var(--cmx-ink);
+}
+
+.cmx-pdp-fav.favorite-button:hover {
+  transform: scale(1.08);
+}
+
+.cmx-pdp-fav.favorite-button svg {
+  width: 2.6rem;
+  height: 2.6rem;
 }
 
 /* Keep the gallery product image clean and contained on white. */
 .product__media-wrapper .product__media-item img,
 .product__media-wrapper .product__media img {
   object-fit: contain;
+}
+
+/* ---------- Thumbnails: small Sephora-style squares ---------------- */
+.product__media-wrapper .thumbnail-list {
+  gap: 1rem;
+}
+
+.product__media-wrapper .thumbnail-list__item.slider__slide {
+  width: 8rem !important;
+  flex: 0 0 8rem;
+}
+
+.product__media-wrapper .thumbnail {
+  border-radius: 8px;
+}
+
+.product__media-wrapper .thumbnail-list__item .thumbnail.global-media-settings--no-shadow,
+.product__media-wrapper .thumbnail {
+  border: 1px solid var(--cmx-line);
+  border-radius: 8px;
+}
+
+.product__media-wrapper .thumbnail[aria-current] {
+  border: 2px solid var(--cmx-ink);
 }
 
 /* ---------- Brand (vendor) + title ---------------------------------- */
