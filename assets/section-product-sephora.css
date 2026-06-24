@@ -1,0 +1,476 @@
+/* =====================================================================
+   SEPHORA-STYLE PRODUCT PAGE (PDP)  (cmx)
+   Loaded by sections/main-product.liquid. Restyles the Dawn product
+   section + a few custom elements (breadcrumb, badges, installments,
+   points box, unified buy row, mobile sticky bar).
+   Accent red: #d6001c   Muted grey: #767676
+   ===================================================================== */
+
+:root {
+  --cmx-red: #d6001c;
+  --cmx-red-dark: #b00017;
+  --cmx-ink: #1a1a1a;
+  --cmx-muted: #767676;
+  --cmx-line: #e3e3e3;
+}
+
+/* ---------- Overall layout ------------------------------------------ */
+.product__info-container {
+  max-width: 56rem;
+}
+
+@media screen and (min-width: 990px) {
+  .product__info-wrapper {
+    padding-left: 5rem;
+  }
+}
+
+/* ---------- Breadcrumb ---------------------------------------------- */
+.cmx-breadcrumb {
+  font-size: 1.3rem;
+  color: var(--cmx-muted);
+  margin: 0 0 1.6rem;
+  line-height: 1.4;
+}
+
+.cmx-breadcrumb a {
+  color: var(--cmx-muted);
+  text-decoration: none;
+}
+
+.cmx-breadcrumb a:hover {
+  color: var(--cmx-ink);
+  text-decoration: underline;
+}
+
+.cmx-breadcrumb__sep {
+  margin: 0 0.6rem;
+  color: #c9c9c9;
+}
+
+/* ---------- Top row: badges (left) + share (right) ------------------ */
+.cmx-pdp-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.cmx-pdp-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.cmx-pdp-badge {
+  display: inline-block;
+  padding: 0.6rem 0.9rem;
+  background: #000;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.cmx-share {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border: 0;
+  background: transparent;
+  color: var(--cmx-ink);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.cmx-share:hover {
+  background: #f4f4f4;
+}
+
+.cmx-share svg {
+  width: 2.2rem;
+  height: 2.2rem;
+}
+
+/* ---------- Favorite heart over the media --------------------------- */
+.product__media-wrapper {
+  position: relative;
+}
+
+.cmx-pdp-fav.favorite-button {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  z-index: 3;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cmx-pdp-fav.favorite-button svg {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+/* Keep the gallery product image clean and contained on white. */
+.product__media-wrapper .product__media-item img,
+.product__media-wrapper .product__media img {
+  object-fit: contain;
+}
+
+/* ---------- Brand (vendor) + title ---------------------------------- */
+.product__text.caption-with-letter-spacing,
+.product__text {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cmx-ink);
+  margin: 0 0 0.4rem;
+}
+
+.product__title h1,
+.product__title .h1 {
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: #333;
+  margin: 0 0 1.6rem;
+}
+
+/* ---------- Price + installments + points -------------------------- */
+#price-,
+[id^="price-"] {
+  display: block;
+}
+
+.product__info-container .price--large .price-item {
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--cmx-ink);
+  line-height: 1.1;
+}
+
+.product__info-container .price--large .price-item--regular {
+  font-size: 1.6rem;
+  color: var(--cmx-muted);
+}
+
+.product__info-container .price__container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+/* hide Dawn's Shop-Pay payment-terms widget (we render our own line) */
+.product__info-container .installment {
+  display: none !important;
+}
+
+.cmx-installments {
+  font-size: 1.5rem;
+  color: var(--cmx-ink);
+  margin: 0.4rem 0 0;
+}
+
+/* Price + points sit side by side */
+.cmx-price-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.cmx-price-row > div:first-child {
+  flex: 1 1 auto;
+}
+
+.cmx-points {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 1.4rem;
+  border: 1px solid var(--cmx-line);
+  border-radius: 10px;
+  line-height: 1.2;
+}
+
+.cmx-points__value {
+  color: var(--cmx-red);
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.cmx-points__label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--cmx-ink);
+}
+
+.cmx-points__help {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Variant picker -> "Variação" card ----------------------- */
+.product-form__input.product-form__input--pill,
+.product-form__input.product-form__input--swatch {
+  border: 1px solid var(--cmx-line);
+  border-radius: 12px;
+  padding: 1.6rem 1.8rem;
+  margin: 0 0 1.6rem;
+}
+
+.product-form__input .form__label {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--cmx-ink);
+  margin-bottom: 1rem;
+}
+
+/* pill option buttons as bordered selectable boxes */
+.product-form__input--pill input[type="radio"] + label {
+  border: 1px solid var(--cmx-line);
+  border-radius: 8px;
+  padding: 1rem 1.6rem;
+  color: var(--cmx-ink);
+  min-width: 6rem;
+}
+
+.product-form__input--pill input[type="radio"]:checked + label {
+  border-color: var(--cmx-ink);
+  border-width: 2px;
+  box-shadow: none;
+}
+
+/* ---------- Inventory / low stock ----------------------------------- */
+.product__inventory {
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--cmx-muted);
+  margin: 0 0 1.2rem;
+}
+
+/* ---------- Unified buy row: [− qty +] | Adicionar à Sacola --------- */
+.cmx-buy-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  background: var(--cmx-red);
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0 0 1.6rem;
+  min-height: 5.4rem;
+}
+
+/* gray it out when the variant is sold out */
+.cmx-buy-row:has(.product-form__submit[disabled]) {
+  background: #c2c2c2;
+}
+
+/* quantity block becomes transparent white controls inside the pill */
+.cmx-buy-row .product-form__quantity {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.45);
+  padding: 0 0.4rem;
+}
+
+.cmx-buy-row .quantity__label {
+  display: none;
+}
+
+.cmx-buy-row .quantity {
+  border: 0;
+  background: transparent;
+  min-height: auto;
+  width: auto;
+}
+
+.cmx-buy-row .quantity__input {
+  background: transparent;
+  color: #fff;
+  border: 0;
+  width: 4rem;
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.cmx-buy-row .quantity__button {
+  color: #fff;
+  width: 3.6rem;
+}
+
+.cmx-buy-row .quantity__button svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+/* buy-buttons wrapper fills the rest of the pill */
+.cmx-buy-row > div:last-child,
+.cmx-buy-row .product-form {
+  flex: 1 1 auto;
+  display: flex;
+}
+
+.cmx-buy-row .product-form__buttons {
+  flex: 1 1 auto;
+  display: flex;
+  max-width: none;
+}
+
+.cmx-buy-row .product-form__submit {
+  flex: 1 1 auto;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  box-shadow: none;
+  min-height: 5.4rem;
+}
+
+.cmx-buy-row .product-form__submit:hover:not([disabled]) {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.cmx-buy-row .product-form__submit::after,
+.cmx-buy-row .product-form__submit::before {
+  display: none;
+}
+
+/* hide the dynamic-checkout (Shop Pay) button area on the PDP */
+.product__info-container .shopify-payment-button {
+  display: none !important;
+}
+
+/* error message styling stays readable on white */
+.product-form__error-message-wrapper {
+  margin-bottom: 1rem;
+}
+
+/* ---------- Description / accordion tabs ---------------------------- */
+.product__description,
+.product__accordion {
+  border-top: 1px solid var(--cmx-line);
+  padding-top: 1.6rem;
+  margin-top: 1.6rem;
+}
+
+.product__description {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: #3a3a3a;
+}
+
+.product__accordion .accordion__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* =====================================================================
+   DESCRIPTION SECTION BELOW (tabs on desktop / accordion on mobile)
+   Styles the Dawn collapsible_tab blocks if used as a group.
+   ===================================================================== */
+
+/* ---------- Mobile sticky add-to-cart bar --------------------------- */
+.cmx-sticky-bar {
+  display: none;
+}
+
+@media screen and (max-width: 749px) {
+  .cmx-sticky-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 1rem 1.4rem calc(1rem + env(safe-area-inset-bottom));
+    background: #fff;
+    border-top: 1px solid var(--cmx-line);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .cmx-sticky-bar__info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .cmx-sticky-bar__points {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    align-self: flex-start;
+    background: #000;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    margin-bottom: 0.3rem;
+  }
+
+  .cmx-sticky-bar__price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--cmx-ink);
+  }
+
+  .cmx-sticky-bar__sub {
+    font-size: 1.2rem;
+    color: var(--cmx-muted);
+  }
+
+  .cmx-sticky-bar__btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.3rem 2rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--cmx-red);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .cmx-sticky-bar__btn:hover {
+    background: var(--cmx-red-dark);
+  }
+
+  /* give the page room so the bar never covers the footer content */
+  .product {
+    padding-bottom: 7rem;
+  }
+}

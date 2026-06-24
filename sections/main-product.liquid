@@ -15,6 +15,7 @@
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+  {{ 'section-product-sephora.css' | asset_url | stylesheet_tag }}
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -41,6 +42,7 @@
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'cmx-product.js' | asset_url }}" defer="defer"></script>
   {%- if product.quantity_price_breaks_configured? -%}
     <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
@@ -75,8 +77,16 @@
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
     <div class="page-width">
+      <nav class="cmx-breadcrumb" aria-label="breadcrumb">
+        <a href="{{ routes.root_url }}">Início</a>
+        {%- if product.type != blank -%}
+          <span class="cmx-breadcrumb__sep">|</span>{{ product.type }}
+        {%- endif -%}
+        <span class="cmx-breadcrumb__sep">|</span>{{ product.title | truncate: 45 }}
+      </nav>
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
+          {%- render 'favorite-button', product: product, class: 'cmx-pdp-fav' -%}
           {% render 'product-media-gallery', variant_images: variant_images %}
         </div>
         <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -86,7 +96,28 @@
           >
             {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
+            <div class="cmx-pdp-top">
+              <div class="cmx-pdp-badges">
+                {%- for tag in product.tags -%}
+                  {%- if tag contains 'selo:' -%}
+                    <span class="cmx-pdp-badge">{{ tag | remove_first: 'selo:' | strip }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+              <button
+                type="button"
+                class="cmx-share"
+                title="Compartilhar"
+                aria-label="Compartilhar"
+                data-share-url="{{ product.url | prepend: request.origin }}"
+                data-share-title="{{ product.title | escape }}"
+              >
+                <span class="svg-wrapper">{{ 'icon-share.svg' | inline_asset_content }}</span>
+              </button>
+            </div>
+
             {%- for block in section.blocks -%}
+              {%- if block.type == 'quantity_selector' -%}<div class="cmx-buy-row">{%- endif -%}
               {%- case block.type -%}
                 {%- when '@app' -%}
                   {% render block %}
@@ -107,13 +138,41 @@
                     </a>
                   </div>
                 {%- when 'price' -%}
-                  <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                    {%- render 'price',
-                      product: product,
-                      use_variant: true,
-                      show_badges: true,
-                      price_class: 'price--large'
-                    -%}
+                  {%- liquid
+                    assign cmx_price = product.selected_or_first_available_variant.price | default: product.price
+                    assign cmx_n = cmx_price | divided_by: 2000
+                    if cmx_n > 10
+                      assign cmx_n = 10
+                    endif
+                    if cmx_n < 1
+                      assign cmx_n = 1
+                    endif
+                    assign cmx_installment = cmx_price | divided_by: cmx_n
+                    assign cmx_points = cmx_price | divided_by: 100
+                  -%}
+                  <div class="cmx-price-row" {{ block.shopify_attributes }}>
+                    <div>
+                      <div id="price-{{ section.id }}" role="status">
+                        {%- render 'price',
+                          product: product,
+                          use_variant: true,
+                          show_badges: true,
+                          price_class: 'price--large'
+                        -%}
+                      </div>
+                      {%- if cmx_n > 1 -%}
+                        <p class="cmx-installments">ou {{ cmx_n }}x de {{ cmx_installment | money }}</p>
+                      {%- endif -%}
+                    </div>
+                    {%- if section.settings.show_loyalty_points -%}
+                      <div class="cmx-points">
+                        <div>
+                          <span class="cmx-points__value">+ {{ cmx_points }} PONTOS</span>
+                          <span class="cmx-points__label">{{ section.settings.loyalty_program_name | default: 'CLUBE' }}</span>
+                        </div>
+                        <span class="cmx-points__help" aria-hidden="true">?</span>
+                      </div>
+                    {%- endif -%}
                   </div>
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -134,13 +193,6 @@
                       {%- endif -%}
                     </div>
                   {%- endif -%}
-                  <div {{ block.shopify_attributes }}>
-                    {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
-                    {%- form 'product', product, id: product_form_installment_id, class: 'installment caption-large' -%}
-                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                      {{ form | payment_terms }}
-                    {%- endform -%}
-                  </div>
                 {%- when 'inventory' -%}
                   <p
                     class="product__inventory{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.inventory_management != 'shopify' %} visibility-hidden{% endif %}"
@@ -497,7 +549,7 @@
                     product: product,
                     product_form_id: product_form_id,
                     section_id: section.id,
-                    show_pickup_availability: true
+                    show_pickup_availability: false
                   -%}
                 {%- when 'rating' -%}
                   {%- if product.metafields.reviews.rating.value != blank -%}
@@ -689,6 +741,7 @@
                 {%- when 'icon-with-text' -%}
                   {% render 'icon-with-text', block: block %}
               {%- endcase -%}
+              {%- if block.type == 'buy_buttons' -%}</div>{%- endif -%}
             {%- endfor -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
               {{ 'products.product.view_full_details' | t }}
@@ -696,6 +749,33 @@
             </a>
           </section>
         </div>
+      </div>
+      {%- comment -%} Mobile sticky add-to-cart bar {%- endcomment -%}
+      {%- liquid
+        assign cmx_sb_price = product.selected_or_first_available_variant.price | default: product.price
+        assign cmx_sb_n = cmx_sb_price | divided_by: 2000
+        if cmx_sb_n > 10
+          assign cmx_sb_n = 10
+        endif
+        if cmx_sb_n < 1
+          assign cmx_sb_n = 1
+        endif
+        assign cmx_sb_installment = cmx_sb_price | divided_by: cmx_sb_n
+        assign cmx_sb_points = cmx_sb_price | divided_by: 100
+      -%}
+      <div class="cmx-sticky-bar">
+        <div class="cmx-sticky-bar__info">
+          {%- if section.settings.show_loyalty_points -%}
+            <span class="cmx-sticky-bar__points">+ {{ cmx_sb_points }} pts</span>
+          {%- endif -%}
+          <span class="cmx-sticky-bar__price">{{ cmx_sb_price | money }}</span>
+          {%- if cmx_sb_n > 1 -%}
+            <span class="cmx-sticky-bar__sub">ou {{ cmx_sb_n }}x de {{ cmx_sb_installment | money }}</span>
+          {%- endif -%}
+        </div>
+        <button type="button" class="cmx-sticky-bar__btn">
+          {{ 'products.product.add_to_cart' | t }}
+        </button>
       </div>
 
       {% render 'product-media-modal', variant_images: variant_images %}
@@ -2147,6 +2227,23 @@
     }
   ],
   "settings": [
+    {
+      "type": "header",
+      "content": "Clube de pontos"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_loyalty_points",
+      "default": false,
+      "label": "Mostrar caixa de pontos",
+      "info": "Exibe '+ X PONTOS' ao lado do preço. X = valor do produto em reais (1 ponto por R$1)."
+    },
+    {
+      "type": "text",
+      "id": "loyalty_program_name",
+      "default": "NO CLUBE DE PONTOS",
+      "label": "Nome do programa de pontos"
+    },
     {
       "type": "checkbox",
       "id": "enable_sticky_info",

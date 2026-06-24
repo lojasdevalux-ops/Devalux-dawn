@@ -116,7 +116,7 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "Adicionar ao carrinho",
+      "add_to_cart": "Adicionar à Sacola",
       "description": "Descrição",
       "on_sale": "Promoção",
       "quantity": {
@@ -175,7 +175,7 @@
       "inventory_in_stock": "Em estoque",
       "inventory_in_stock_show_count": "{{ quantity }} em estoque",
       "inventory_low_stock": "Estoque baixo",
-      "inventory_low_stock_show_count": "Estoque baixo: {{ quantity }} restante(s)",
+      "inventory_low_stock_show_count": "Restam {{ quantity }} no estoque",
       "inventory_out_of_stock": "Fora de estoque",
       "inventory_out_of_stock_continue_selling": "Em estoque",
       "sku": "SKU",
