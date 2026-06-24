@@ -263,11 +263,13 @@
   gap: 0.2rem;
 }
 
-/* stack compare-at (struck, on top) above the current price */
+/* stack compare-at (struck, on top) above the current price.
+   Dawn forces `.price--on-sale .price__sale { display: initial; flex-direction: row }`
+   at equal specificity, so override with !important. */
 .product__info-container .price__sale,
 .product__info-container .price__regular {
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
   align-items: flex-start;
   gap: 0.2rem;
 }
