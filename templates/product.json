@@ -37,9 +37,9 @@
         "inventory": {
           "type": "inventory",
           "settings": {
+            "text_style": "body",
             "inventory_threshold": 10,
-            "show_inventory_quantity": true,
-            "text_style": "body"
+            "show_inventory_quantity": true
           }
         },
         "quantity_selector": {
@@ -51,16 +51,6 @@
           "settings": {
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
-          }
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
           }
         }
       },
@@ -74,13 +64,15 @@
         "buy_buttons"
       ],
       "settings": {
+        "show_loyalty_points": false,
+        "loyalty_program_name": "NO CLUBE DE PONTOS",
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
-        "media_size": "large",
+        "media_size": "small",
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "stacked",
-        "mobile_thumbnails": "hide",
+        "mobile_thumbnails": "show",
         "media_position": "left",
         "image_zoom": "lightbox",
         "hide_variants": true,
@@ -92,6 +84,10 @@
     "disclosures": {
       "type": "disclosures",
       "settings": {
+        "heading": "Disclosures",
+        "heading_size": "h2",
+        "open_by_default": false,
+        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 0
       }
