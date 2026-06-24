@@ -78,6 +78,7 @@
 /* ---------- Top-right share button --------------------------------- */
 .cmx-pdp-actions {
   flex: 0 0 auto;
+  margin-left: auto;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
