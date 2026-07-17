@@ -3,18 +3,19 @@
 
   O par vem do metafield que o app Search & Discovery grava
   (shopify--discovery--product_recommendation.complementary_products).
-  Sem esse app configurado, nada é renderizado.
+  Os complementares são escolhidos à mão no app, produto a produto — sem
+  isso, o metafield não existe e nada é renderizado.
 
   A economia exibida é a soma dos descontos que os próprios produtos já têm
   (preço "de/por"). Não existe desconto extra de combo aqui: o total é o que
   o cliente realmente paga no checkout.
 
   Accepts:
-  - block: {Object}
+  - settings: {Object} section.settings
   - section_id: {String}
 
   Usage:
-  {% render 'cmx-bundle', block: block, section_id: section.id %}
+  {% render 'cmx-bundle', settings: section.settings, section_id: section.id %}
 {%- endcomment -%}
 {%- liquid
   assign comp_list = product.metafields['shopify--discovery--product_recommendation']['complementary_products'].value
@@ -48,24 +49,20 @@
   endif
 -%}
 
-<cmx-bundle
-  id="CmxBundle-{{ section_id }}"
-  class="cmx-bundle"
-  {{ block.shopify_attributes }}
->
+<cmx-bundle class="cmx-bundle" data-section-id="{{ section_id }}">
   {%- if partner != nil and product.available -%}
-    {%- if block.settings.label != blank -%}
-      <span class="cmx-bundle__pill">{{ block.settings.label | escape }}</span>
+    {%- if settings.label != blank -%}
+      <span class="cmx-bundle__pill">{{ settings.label | escape }}</span>
     {%- endif -%}
 
     <div class="cmx-bundle__card">
-      {%- if block.settings.heading != blank or block.settings.subheading != blank -%}
+      {%- if settings.heading != blank or settings.subheading != blank -%}
         <div class="cmx-bundle__head">
-          {%- if block.settings.heading != blank -%}
-            <p class="cmx-bundle__title">{{ block.settings.heading | escape }}</p>
+          {%- if settings.heading != blank -%}
+            <p class="cmx-bundle__title">{{ settings.heading | escape }}</p>
           {%- endif -%}
-          {%- if block.settings.subheading != blank -%}
-            <p class="cmx-bundle__sub">{{ block.settings.subheading | escape }}</p>
+          {%- if settings.subheading != blank -%}
+            <p class="cmx-bundle__sub">{{ settings.subheading | escape }}</p>
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -87,7 +84,7 @@
             class="cmx-bundle__add"
             data-variants="{{ v1.id }},{{ v2.id }}"
           >
-            <span class="cmx-bundle__add-text">{{ block.settings.button_label | default: 'Adicionar à sacola' | escape }}</span>
+            <span class="cmx-bundle__add-text">{{ settings.button_label | default: 'Adicionar à sacola' | escape }}</span>
             <span class="cmx-bundle__spinner" hidden>{{ 'loading-spinner.svg' | inline_asset_content }}</span>
           </button>
           <p class="cmx-bundle__error" role="alert" hidden></p>
@@ -100,7 +97,7 @@
       <strong>Combo não exibido — diagnóstico:</strong>
       <br>1. Metafield complementares:
       {%- if comp_list == nil -%}
-        NÃO ENCONTRADO (app não configurou este produto)
+        NÃO ENCONTRADO (o app Search & Discovery ainda não tem complementares escolhidos para este produto)
       {%- else -%}
         encontrado, {{ comp_list.size }} produto(s)
       {%- endif -%}

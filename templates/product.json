@@ -49,15 +49,6 @@
             "show_gift_card_recipient": true
           }
         },
-        "bundle": {
-          "type": "cmx_bundle",
-          "settings": {
-            "label": "Combos",
-            "heading": "Leve os dois juntos",
-            "subheading": "A combinação perfeita para o seu perfume",
-            "button_label": "Adicionar à sacola"
-          }
-        },
         "delivery": {
           "type": "cmx_delivery",
           "settings": {
@@ -94,7 +85,6 @@
         "variant_picker",
         "inventory",
         "buy_buttons",
-        "bundle",
         "delivery",
         "benefits"
       ],
@@ -127,6 +117,17 @@
         "padding_bottom": 0
       }
     },
+    "product_bundle": {
+      "type": "product-bundle",
+      "settings": {
+        "label": "Combos",
+        "heading": "Leve os dois juntos",
+        "subheading": "A combinação perfeita para o seu perfume",
+        "button_label": "Adicionar à sacola",
+        "padding_top": 28,
+        "padding_bottom": 12
+      }
+    },
     "related-products": {
       "type": "related-products",
       "settings": {
@@ -149,6 +150,7 @@
   "order": [
     "main",
     "disclosures",
+    "product_bundle",
     "related-products"
   ]
 }

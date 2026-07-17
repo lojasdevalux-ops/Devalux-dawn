@@ -203,7 +203,6 @@ if (!customElements.get('product-info')) {
           };
 
           updateSourceFromDestination('price');
-          updateSourceFromDestination('CmxBundle');
           updateSourceFromDestination('Sku', ({ classList }) => classList.contains('hidden'));
           updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');
           updateSourceFromDestination('Volume');
