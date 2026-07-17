@@ -855,22 +855,19 @@
    ===================================================================== */
 .cmx-delivery {
   display: flex;
+  gap: 1.2rem;
   margin: 2rem 0 0;
-  border: 1px solid var(--cmx-line);
-  border-radius: 14px;
-  background: var(--cmx-delivery-bg, #fdf6f7);
-  overflow: hidden;
 }
 
-/* flex: 1 1 0 faz a coluna ocupar tudo quando a outra está escondida */
+/* cada coluna é um card independente; flex: 1 1 0 faz uma sozinha
+   ocupar a largura toda quando a outra está escondida */
 .cmx-delivery__col {
   flex: 1 1 0;
   min-width: 0;
   padding: 1.6rem 1.8rem 1.8rem;
-}
-
-.cmx-delivery__col + .cmx-delivery__col {
-  border-left: 1px solid var(--cmx-line);
+  border: 1px solid var(--cmx-line);
+  border-radius: 14px;
+  background: var(--cmx-delivery-bg, #fdf6f7);
 }
 
 .cmx-delivery__head {
@@ -927,10 +924,5 @@
 @media screen and (max-width: 749px) {
   .cmx-delivery {
     flex-direction: column;
-  }
-
-  .cmx-delivery__col + .cmx-delivery__col {
-    border-left: 0;
-    border-top: 1px solid var(--cmx-line);
   }
 }
