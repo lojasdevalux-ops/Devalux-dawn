@@ -1,0 +1,63 @@
+{%- comment -%}
+  Painel de entrega / retirada da página de produto (duas colunas).
+  Cada coluna só aparece se tiver título. Texto puramente informativo —
+  não consulta estoque nem prazo real (para isso existe 'pickup-availability').
+
+  Accepts:
+  - block: {Object}
+
+  Usage:
+  {% render 'cmx-delivery-options', block: block %}
+{%- endcomment -%}
+{%- liquid
+  assign show_1 = false
+  assign show_2 = false
+  if block.settings.title_1 != blank
+    assign show_1 = true
+  endif
+  if block.settings.title_2 != blank
+    assign show_2 = true
+  endif
+-%}
+
+{%- if show_1 or show_2 -%}
+  <div
+    class="cmx-delivery"
+    style="--cmx-delivery-bg: {{ block.settings.background }};"
+    {{ block.shopify_attributes }}
+  >
+    {%- if show_1 -%}
+      <div class="cmx-delivery__col">
+        <div class="cmx-delivery__head">
+          <span class="cmx-delivery__title">{{ block.settings.title_1 | escape }}</span>
+          {%- render 'icon-accordion', icon: block.settings.icon_1 -%}
+        </div>
+        {%- if block.settings.text_1 != blank -%}
+          <div class="cmx-delivery__text rte">{{ block.settings.text_1 }}</div>
+        {%- endif -%}
+        {%- if block.settings.link_label_1 != blank and block.settings.link_url_1 != blank -%}
+          <a class="cmx-delivery__link" href="{{ block.settings.link_url_1 }}">
+            {{- block.settings.link_label_1 | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if show_2 -%}
+      <div class="cmx-delivery__col">
+        <div class="cmx-delivery__head">
+          <span class="cmx-delivery__title">{{ block.settings.title_2 | escape }}</span>
+          {%- render 'icon-accordion', icon: block.settings.icon_2 -%}
+        </div>
+        {%- if block.settings.text_2 != blank -%}
+          <div class="cmx-delivery__text rte">{{ block.settings.text_2 }}</div>
+        {%- endif -%}
+        {%- if block.settings.link_label_2 != blank and block.settings.link_url_2 != blank -%}
+          <a class="cmx-delivery__link" href="{{ block.settings.link_url_2 }}">
+            {{- block.settings.link_label_2 | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

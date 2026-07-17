@@ -849,3 +849,88 @@
   font-weight: 700;
   color: var(--cmx-ink);
 }
+
+/* =====================================================================
+   PAINEL DE ENTREGA / RETIRADA — bloco "Entrega e retirada"
+   ===================================================================== */
+.cmx-delivery {
+  display: flex;
+  margin: 2rem 0 0;
+  border: 1px solid var(--cmx-line);
+  border-radius: 14px;
+  background: var(--cmx-delivery-bg, #fdf6f7);
+  overflow: hidden;
+}
+
+/* flex: 1 1 0 faz a coluna ocupar tudo quando a outra está escondida */
+.cmx-delivery__col {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 1.6rem 1.8rem 1.8rem;
+}
+
+.cmx-delivery__col + .cmx-delivery__col {
+  border-left: 1px solid var(--cmx-line);
+}
+
+.cmx-delivery__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.cmx-delivery__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--cmx-ink);
+}
+
+.cmx-delivery__head .svg-wrapper {
+  flex: 0 0 auto;
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--cmx-ink);
+}
+
+.cmx-delivery__head .svg-wrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cmx-delivery__text {
+  font-size: 1.4rem;
+  line-height: 1.45;
+  color: #3a3a3a;
+}
+
+.cmx-delivery__text > *:first-child {
+  margin-top: 0;
+}
+
+.cmx-delivery__text > *:last-child {
+  margin-bottom: 0;
+}
+
+.cmx-delivery__link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cmx-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media screen and (max-width: 749px) {
+  .cmx-delivery {
+    flex-direction: column;
+  }
+
+  .cmx-delivery__col + .cmx-delivery__col {
+    border-left: 0;
+    border-top: 1px solid var(--cmx-line);
+  }
+}

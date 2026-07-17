@@ -49,6 +49,22 @@
             "show_gift_card_recipient": true
           }
         },
+        "delivery": {
+          "type": "cmx_delivery",
+          "settings": {
+            "background": "#fdf6f7",
+            "icon_1": "truck",
+            "title_1": "Opções de entrega",
+            "text_1": "<p>Descreva aqui os seus prazos e valores de frete.</p>",
+            "link_label_1": "Informações de entrega",
+            "link_url_1": "",
+            "icon_2": "map_pin",
+            "title_2": "Retirada na loja",
+            "text_2": "<p>Descreva aqui como funciona a retirada.</p>",
+            "link_label_2": "Escolher loja",
+            "link_url_2": ""
+          }
+        },
         "benefits": {
           "type": "icon-with-text",
           "settings": {
@@ -69,6 +85,7 @@
         "variant_picker",
         "inventory",
         "buy_buttons",
+        "delivery",
         "benefits"
       ],
       "settings": {
