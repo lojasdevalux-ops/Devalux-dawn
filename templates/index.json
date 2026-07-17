@@ -37,7 +37,7 @@
       ],
       "name": "t:sections.slideshow.presets.name",
       "settings": {
-        "layout": "grid",
+        "layout": "full_bleed",
         "slide_height": "custom",
         "height_desktop": 520,
         "height_mobile": 450,
