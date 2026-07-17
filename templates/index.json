@@ -39,7 +39,7 @@
       "settings": {
         "layout": "grid",
         "slide_height": "custom",
-        "height_desktop": 480,
+        "height_desktop": 520,
         "height_mobile": 320,
         "slider_visual": "dots",
         "auto_rotate": false,
