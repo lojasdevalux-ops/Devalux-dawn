@@ -1,0 +1,39 @@
+{%- comment -%}
+  Ícone das abas do produto.
+  Aceita: icon (string) — ver opções no schema de product-tabs.liquid
+{%- endcomment -%}
+{%- case icon -%}
+  {%- when 'description' -%}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M9 3h6a1 1 0 0 1 1 1v1H8V4a1 1 0 0 1 1-1z"/>
+      <path d="M16 5h2a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2"/>
+      <path d="M9 11h6M9 15h6"/>
+    </svg>
+  {%- when 'usage' -%}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <rect x="3" y="4" width="18" height="16" rx="2"/>
+      <path d="M7 9h.01M7 13h.01M7 17h.01M11 9h6M11 13h6M11 17h6"/>
+    </svg>
+  {%- when 'ingredients' -%}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M4 11h16a8 8 0 0 1-16 0z"/>
+      <path d="M12 19v2M9 21h6"/>
+      <path d="M15 8c2-1.5 3.5-3 3.5-4.5"/>
+    </svg>
+  {%- when 'drop' -%}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M12 3s6 6.5 6 10.5a6 6 0 0 1-12 0C6 9.5 12 3 12 3z"/>
+    </svg>
+  {%- when 'leaf' -%}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M20 4C10 4 4 9 4 16a4 4 0 0 0 4 4c7 0 12-6 12-16z"/>
+      <path d="M4 20c4-6 8-9 13-11"/>
+    </svg>
+  {%- when 'truck' -%}
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M3 7h11v10H3z"/>
+      <path d="M14 10h4l3 3v4h-7z"/>
+      <circle cx="7" cy="18" r="1.8"/>
+      <circle cx="17.5" cy="18" r="1.8"/>
+    </svg>
+{%- endcase -%}

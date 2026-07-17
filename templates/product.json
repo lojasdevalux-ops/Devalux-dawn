@@ -76,6 +76,47 @@
         "padding_bottom": 12
       }
     },
+    "product_tabs": {
+      "type": "product-tabs",
+      "blocks": {
+        "tab_description": {
+          "type": "tab",
+          "settings": {
+            "heading": "Descrição",
+            "icon": "description",
+            "source": "description"
+          }
+        },
+        "tab_usage": {
+          "type": "tab",
+          "settings": {
+            "heading": "Modo de uso",
+            "icon": "usage",
+            "source": "metafield",
+            "metafield": "custom.modo_de_uso"
+          }
+        },
+        "tab_ingredients": {
+          "type": "tab",
+          "settings": {
+            "heading": "Ingredientes",
+            "icon": "ingredients",
+            "source": "metafield",
+            "metafield": "custom.ingredientes"
+          }
+        }
+      },
+      "block_order": [
+        "tab_description",
+        "tab_usage",
+        "tab_ingredients"
+      ],
+      "settings": {
+        "aria_label": "Informações do produto",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "disclosures": {
       "type": "disclosures",
       "settings": {
@@ -108,6 +149,7 @@
   },
   "order": [
     "main",
+    "product_tabs",
     "disclosures",
     "related-products"
   ]
