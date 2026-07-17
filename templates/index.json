@@ -30,10 +30,30 @@
             "text_alignment_mobile": "center",
             "color_scheme": ""
           }
+        },
+        "slide_k6fAcE": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/dg_ff25_lb_cp_couple_new_lb_edt_100ml_8057971188192_jpg_16_9_300dpi.webp",
+            "enable_video_looping": true,
+            "image_overlay_opacity": 0,
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "middle-center",
+            "text_alignment": "center",
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
+          }
         }
       },
       "block_order": [
-        "slide_gcck7y"
+        "slide_gcck7y",
+        "slide_k6fAcE"
       ],
       "name": "t:sections.slideshow.presets.name",
       "settings": {
@@ -77,10 +97,28 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "featured_collection_banner_FMhQtE": {
+      "type": "featured-collection-banner",
+      "name": "Coleção destaque + imagem",
+      "settings": {
+        "title": "Descubra a coleção",
+        "heading_size": "h2",
+        "image": "shopify://shop_images/sec04-tile-img.jpg",
+        "image_link": "",
+        "collection": "",
+        "products_to_show": 8,
+        "show_vendor": true,
+        "image_ratio": "square",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
     "slideshow_rgA4PG",
-    "featured_collection_bqx6iq"
+    "featured_collection_bqx6iq",
+    "featured_collection_banner_FMhQtE"
   ]
 }
