@@ -15,6 +15,7 @@
         "slide_gcck7y": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/a1_2.webp",
             "image_overlay_opacity": 0,
             "heading": "",
             "heading_size": "h1",
