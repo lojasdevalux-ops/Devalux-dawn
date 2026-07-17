@@ -257,14 +257,14 @@
 .cmx-card__price {
   margin-top: auto;
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0 0.8rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
 }
 
 .cmx-card__compare {
   font-size: 1.4rem;
+  line-height: 1.15;
   color: #8a8a8a;
   text-decoration: line-through;
 }
