@@ -774,11 +774,15 @@
               assign cmx_tab_label = 'products.product.description' | t
               assign cmx_tab_icon = cmx_clipboard
             when 'usage'
+              # texto padrão da seção; o metafield só existe para o produto
+              # que precisar de um modo de uso diferente do resto
               assign cmx_mf = product.metafields.custom.modo_de_uso
               if cmx_mf != blank
                 capture cmx_tab_content
                   echo cmx_mf | metafield_tag
                 endcapture
+              else
+                assign cmx_tab_content = section.settings.usage_text
               endif
               assign cmx_tab_label = 'Modo de uso'
               assign cmx_tab_icon = cmx_usage_icon
@@ -2315,6 +2319,17 @@
     }
   ],
   "settings": [
+    {
+      "type": "header",
+      "content": "Abas do produto"
+    },
+    {
+      "type": "richtext",
+      "id": "usage_text",
+      "label": "Modo de uso (padrão)",
+      "info": "Aparece igual em todos os produtos. Se um produto tiver o metafield custom.modo_de_uso preenchido, ele mostra aquele texto no lugar deste. Deixe em branco para esconder a aba.",
+      "default": "<p>Aplique nos pontos de pulsação — pulsos, atrás das orelhas e na base do pescoço — mantendo o frasco a cerca de 15 cm da pele.</p><p>Não esfregue os pulsos após a aplicação: o atrito quebra as notas mais delicadas e reduz a fixação.</p>"
+    },
     {
       "type": "header",
       "content": "Clube de pontos"
