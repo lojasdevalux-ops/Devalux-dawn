@@ -615,11 +615,11 @@
 }
 
 /* ----- Mobile: stacked accordion ----- */
-.cmx-pdp-tabs__nav {
-  display: none;
-}
-
 @media screen and (max-width: 749px) {
+  .cmx-pdp-tabs__nav {
+    display: none;
+  }
+
   .cmx-pdp-tab-item {
     border-top: 1px solid var(--cmx-line);
   }
