@@ -752,30 +752,99 @@
         </div>
       </div>
 
-      {%- comment -%} Full-width Descrição (tabs on desktop / accordion on mobile) {%- endcomment -%}
-      {%- if product.description != blank -%}
-        {%- capture cmx_clipboard -%}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" width="22" height="22"><rect x="5" y="4" width="14" height="17" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 4.5h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-.5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>{%- endcapture -%}
-        <section class="cmx-pdp-tabs" data-cmx-tabs>
-          <div class="cmx-pdp-tabs__nav" role="tablist">
-            <button type="button" class="cmx-pdp-tab is-active" data-cmx-tab="0" role="tab" aria-selected="true">
-              <span class="cmx-pdp-tab__icon">{{ cmx_clipboard }}</span>
-              {{ 'products.product.description' | t }}
+      {%- comment -%} Full-width Descrição / Modo de uso / Ingredientes (tabs on desktop / accordion on mobile) {%- endcomment -%}
+      {%- capture cmx_clipboard -%}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" width="22" height="22"><rect x="5" y="4" width="14" height="17" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M9 4.5h6a1 1 0 0 1 1 1V6a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-.5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 11h7M8.5 14.5h7M8.5 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>{%- endcapture -%}
+      {%- capture cmx_usage_icon -%}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" width="22" height="22"><rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7 9h.01M7 12h.01M7 15h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M10.5 9h6.5M10.5 12h6.5M10.5 15h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>{%- endcapture -%}
+      {%- capture cmx_ingredients_icon -%}<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" width="22" height="22"><path d="M4 10.5h16a8 8 0 0 1-16 0Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 18.5v2M9.5 20.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M15 7.5c2.2-1.6 3.6-3.2 3.6-4.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>{%- endcapture -%}
+
+      {%- assign cmx_tab_nav = '' -%}
+      {%- assign cmx_tab_items = '' -%}
+      {%- assign cmx_tab_index = 0 -%}
+      {%- assign cmx_tab_keys = 'description,usage,ingredients' | split: ',' -%}
+
+      {%- for cmx_key in cmx_tab_keys -%}
+        {%- liquid
+          assign cmx_tab_content = ''
+          assign cmx_tab_label = ''
+          assign cmx_tab_icon = ''
+
+          case cmx_key
+            when 'description'
+              assign cmx_tab_content = product.description
+              assign cmx_tab_label = 'products.product.description' | t
+              assign cmx_tab_icon = cmx_clipboard
+            when 'usage'
+              assign cmx_mf = product.metafields.custom.modo_de_uso
+              if cmx_mf != blank
+                capture cmx_tab_content
+                  echo cmx_mf | metafield_tag
+                endcapture
+              endif
+              assign cmx_tab_label = 'Modo de uso'
+              assign cmx_tab_icon = cmx_usage_icon
+            when 'ingredients'
+              assign cmx_mf = product.metafields.custom.ingredientes
+              if cmx_mf != blank
+                capture cmx_tab_content
+                  echo cmx_mf | metafield_tag
+                endcapture
+              endif
+              assign cmx_tab_label = 'Ingredientes'
+              assign cmx_tab_icon = cmx_ingredients_icon
+          endcase
+
+          assign cmx_tab_probe = cmx_tab_content | strip_html | strip
+        -%}
+
+        {%- comment -%} Aba sem conteúdo não é renderizada {%- endcomment -%}
+        {%- if cmx_tab_probe != blank -%}
+          {%- assign cmx_is_active = false -%}
+          {%- if cmx_tab_index == 0 -%}
+            {%- assign cmx_is_active = true -%}
+          {%- endif -%}
+
+          {%- capture cmx_nav_btn -%}
+            <button
+              type="button"
+              class="cmx-pdp-tab{% if cmx_is_active %} is-active{% endif %}"
+              data-cmx-tab="{{ cmx_tab_index }}"
+              role="tab"
+              aria-selected="{% if cmx_is_active %}true{% else %}false{% endif %}"
+            >
+              <span class="cmx-pdp-tab__icon">{{ cmx_tab_icon }}</span>
+              {{ cmx_tab_label }}
             </button>
-          </div>
-          <div class="cmx-pdp-tabs__items">
-            <div class="cmx-pdp-tab-item is-active" data-cmx-item="0">
-              <button type="button" class="cmx-pdp-acc-head" data-cmx-acc="0" aria-expanded="true">
+          {%- endcapture -%}
+          {%- assign cmx_tab_nav = cmx_tab_nav | append: cmx_nav_btn -%}
+
+          {%- capture cmx_item -%}
+            <div class="cmx-pdp-tab-item{% if cmx_is_active %} is-active{% endif %}" data-cmx-item="{{ cmx_tab_index }}">
+              <button type="button" class="cmx-pdp-acc-head" data-cmx-acc="{{ cmx_tab_index }}" aria-expanded="{% if cmx_is_active %}true{% else %}false{% endif %}">
                 <span class="cmx-pdp-acc-head__label">
-                  <span class="cmx-pdp-tab__icon">{{ cmx_clipboard }}</span>
-                  {{ 'products.product.description' | t }}
+                  <span class="cmx-pdp-tab__icon">{{ cmx_tab_icon }}</span>
+                  {{ cmx_tab_label }}
                 </span>
                 <span class="cmx-pdp-acc-caret" aria-hidden="true"></span>
               </button>
               <div class="cmx-pdp-acc-panel">
-                <div class="cmx-pdp-rte rte">{{ product.description }}</div>
+                <div class="cmx-pdp-rte rte">{{ cmx_tab_content }}</div>
                 <button type="button" class="cmx-readmore" hidden>Mostrar Mais</button>
               </div>
             </div>
+          {%- endcapture -%}
+          {%- assign cmx_tab_items = cmx_tab_items | append: cmx_item -%}
+
+          {%- assign cmx_tab_index = cmx_tab_index | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if cmx_tab_index > 0 -%}
+        <section class="cmx-pdp-tabs" data-cmx-tabs>
+          <div class="cmx-pdp-tabs__nav" role="tablist">
+            {{ cmx_tab_nav }}
+          </div>
+          <div class="cmx-pdp-tabs__items">
+            {{ cmx_tab_items }}
           </div>
         </section>
       {%- endif -%}
