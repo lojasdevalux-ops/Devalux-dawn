@@ -220,10 +220,10 @@
               </p>
             {%- endif -%}
             <div class="cmx-card__price{% if cmx_on_sale %} cmx-card__price--sale{% endif %}{% unless card_product.available %} cmx-card__price--sold-out{% endunless %}">
+              <span class="cmx-card__price-current">{{ card_product.price | money }}</span>
               {%- if cmx_on_sale -%}
                 <s class="cmx-card__compare">{{ card_product.compare_at_price | money }}</s>
               {%- endif -%}
-              <span class="cmx-card__price-current">{{ card_product.price | money }}</span>
             </div>
           </div>
           {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
