@@ -99,7 +99,20 @@ class CmxBundle extends HTMLElement {
         return;
       }
 
-      cart.renderContents(data);
+      // Adicionando vários itens, /cart/add.js devolve {items:[...]} — sem o
+      // `key` de topo que existe na adição de um item só. cart-notification
+      // monta o seletor a partir desse `key`, então sem isto ele procura
+      // "...-undefined", acha null e estoura. Usamos o primeiro item.
+      const key = data.items && data.items.length ? data.items[0].key : data.key;
+
+      let sections = data.sections;
+      if (!sections) {
+        const ids = cart.getSectionsToRender().map((section) => section.id).join(',');
+        const sectionsResponse = await fetch(`${window.location.pathname}?sections=${ids}`);
+        sections = await sectionsResponse.json();
+      }
+
+      cart.renderContents({ ...data, key, sections });
 
       if (typeof publish === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
         publish(PUB_SUB_EVENTS.cartUpdate, {
