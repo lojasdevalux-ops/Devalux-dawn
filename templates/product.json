@@ -48,6 +48,18 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": true
           }
+        },
+        "benefits": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "vertical",
+            "icon_1": "truck",
+            "heading_1": "<strong>Entrega rápida</strong> com frete baixo e mais segurança para você.",
+            "icon_2": "lock",
+            "heading_2": "<strong>Compra garantida</strong> do pedido até a entrega.",
+            "icon_3": "return",
+            "heading_3": "<strong>Devolução grátis</strong> em até 7 dias após receber o produto."
+          }
         }
       },
       "block_order": [
@@ -56,7 +68,8 @@
         "price",
         "variant_picker",
         "inventory",
-        "buy_buttons"
+        "buy_buttons",
+        "benefits"
       ],
       "settings": {
         "show_loyalty_points": false,
@@ -69,7 +82,7 @@
         "gallery_layout": "thumbnail",
         "mobile_thumbnails": "show",
         "media_position": "left",
-        "image_zoom": "none",
+        "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": false,
         "padding_top": 36,

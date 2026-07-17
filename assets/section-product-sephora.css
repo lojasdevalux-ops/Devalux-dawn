@@ -782,3 +782,70 @@
     padding-bottom: 7rem;
   }
 }
+
+/* =====================================================================
+   SELOS DE CONFIANÇA — bloco "Ícone com texto" (icon-with-text)
+   O CSS original do Dawn para este bloco não existe neste tema, então o
+   estilo abaixo é o único que ele tem.
+   ===================================================================== */
+.product__info-container .icon-with-text {
+  display: flex;
+  gap: 1.6rem;
+  margin: 2rem 0 0;
+  padding: 1.8rem 2rem;
+  border: 1px solid var(--cmx-line);
+  border-radius: 14px;
+}
+
+.product__info-container .icon-with-text--vertical {
+  flex-direction: column;
+}
+
+.product__info-container .icon-with-text--horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.product__info-container .icon-with-text--horizontal .icon-with-text__item {
+  flex: 1 1 0;
+  min-width: 14rem;
+}
+
+.product__info-container .icon-with-text__item {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  text-align: left;
+}
+
+.product__info-container .icon-with-text__item .svg-wrapper,
+.product__info-container .icon-with-text__item img {
+  flex: 0 0 auto;
+  width: 3rem;
+  height: 3rem;
+  color: var(--cmx-ink);
+}
+
+.product__info-container .icon-with-text__item .svg-wrapper svg,
+.product__info-container .icon-with-text__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* o snippet marca o texto como .h4; aqui ele é corpo de texto comum,
+   com o destaque vindo do negrito digitado no editor */
+.product__info-container .icon-with-text__item .h4 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: #3a3a3a;
+}
+
+.product__info-container .icon-with-text__item .h4 strong,
+.product__info-container .icon-with-text__item .h4 b {
+  font-weight: 700;
+  color: var(--cmx-ink);
+}
