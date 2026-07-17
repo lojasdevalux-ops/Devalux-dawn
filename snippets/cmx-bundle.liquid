@@ -1,0 +1,98 @@
+{%- comment -%}
+  Combo "compre junto": produto atual + primeiro produto complementar.
+
+  O par vem do metafield que o app Search & Discovery grava
+  (shopify--discovery--product_recommendation.complementary_products).
+  Sem esse app configurado, nada é renderizado.
+
+  A economia exibida é a soma dos descontos que os próprios produtos já têm
+  (preço "de/por"). Não existe desconto extra de combo aqui: o total é o que
+  o cliente realmente paga no checkout.
+
+  Accepts:
+  - block: {Object}
+  - section_id: {String}
+
+  Usage:
+  {% render 'cmx-bundle', block: block, section_id: section.id %}
+{%- endcomment -%}
+{%- liquid
+  assign comp_list = product.metafields['shopify--discovery--product_recommendation']['complementary_products'].value
+  assign partner = nil
+
+  for candidate in comp_list
+    if candidate.available and candidate.id != product.id
+      assign partner = candidate
+      break
+    endif
+  endfor
+
+  assign v1 = product.selected_or_first_available_variant
+  assign v2 = partner.selected_or_first_available_variant
+
+  assign bundle_total = 0
+  assign bundle_save = 0
+
+  if partner != nil and v1 != nil and v2 != nil
+    assign bundle_total = v1.price | plus: v2.price
+
+    if v1.compare_at_price > v1.price
+      assign s1 = v1.compare_at_price | minus: v1.price
+      assign bundle_save = bundle_save | plus: s1
+    endif
+
+    if v2.compare_at_price > v2.price
+      assign s2 = v2.compare_at_price | minus: v2.price
+      assign bundle_save = bundle_save | plus: s2
+    endif
+  endif
+-%}
+
+<cmx-bundle
+  id="CmxBundle-{{ section_id }}"
+  class="cmx-bundle"
+  {{ block.shopify_attributes }}
+>
+  {%- if partner != nil and product.available -%}
+    {%- if block.settings.label != blank -%}
+      <span class="cmx-bundle__pill">{{ block.settings.label | escape }}</span>
+    {%- endif -%}
+
+    <div class="cmx-bundle__card">
+      {%- if block.settings.heading != blank or block.settings.subheading != blank -%}
+        <div class="cmx-bundle__head">
+          {%- if block.settings.heading != blank -%}
+            <p class="cmx-bundle__title">{{ block.settings.heading | escape }}</p>
+          {%- endif -%}
+          {%- if block.settings.subheading != blank -%}
+            <p class="cmx-bundle__sub">{{ block.settings.subheading | escape }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="cmx-bundle__body">
+        {%- render 'cmx-bundle-item', bundle_product: product, bundle_variant: v1 -%}
+        <span class="cmx-bundle__op" aria-hidden="true">+</span>
+        {%- render 'cmx-bundle-item', bundle_product: partner, bundle_variant: v2 -%}
+        <span class="cmx-bundle__op" aria-hidden="true">=</span>
+
+        <div class="cmx-bundle__total">
+          <span class="cmx-bundle__total-label">Total</span>
+          <span class="cmx-bundle__total-price">{{ bundle_total | money }}</span>
+          {%- if bundle_save > 0 -%}
+            <span class="cmx-bundle__save">Economize {{ bundle_save | money }}</span>
+          {%- endif -%}
+          <button
+            type="button"
+            class="cmx-bundle__add"
+            data-variants="{{ v1.id }},{{ v2.id }}"
+          >
+            <span class="cmx-bundle__add-text">{{ block.settings.button_label | default: 'Adicionar à sacola' | escape }}</span>
+            <span class="cmx-bundle__spinner" hidden>{{ 'loading-spinner.svg' | inline_asset_content }}</span>
+          </button>
+          <p class="cmx-bundle__error" role="alert" hidden></p>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</cmx-bundle>

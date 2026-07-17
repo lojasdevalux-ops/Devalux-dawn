@@ -49,6 +49,15 @@
             "show_gift_card_recipient": true
           }
         },
+        "bundle": {
+          "type": "cmx_bundle",
+          "settings": {
+            "label": "Combos",
+            "heading": "Leve os dois juntos",
+            "subheading": "A combinação perfeita para o seu perfume",
+            "button_label": "Adicionar à sacola"
+          }
+        },
         "delivery": {
           "type": "cmx_delivery",
           "settings": {
@@ -85,6 +94,7 @@
         "variant_picker",
         "inventory",
         "buy_buttons",
+        "bundle",
         "delivery",
         "benefits"
       ],

@@ -16,6 +16,7 @@
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
   {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
   {{ 'section-product-sephora.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'cmx-bundle.js' | asset_url }}" defer="defer"></script>
 
   {% unless product.has_only_default_variant %}
     {{ 'component-product-variant-picker.css' | asset_url | stylesheet_tag }}
@@ -736,6 +737,10 @@
                   </product-recommendations>
                 {%- when 'icon-with-text' -%}
                   {% render 'icon-with-text', block: block %}
+                {%- when 'cmx_delivery' -%}
+                  {% render 'cmx-delivery-options', block: block %}
+                {%- when 'cmx_bundle' -%}
+                  {% render 'cmx-bundle', block: block, section_id: section.id %}
               {%- endcase -%}
               {%- if block.type == 'buy_buttons' -%}</div>{%- endif -%}
             {%- endfor -%}
@@ -928,6 +933,149 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "cmx_bundle",
+      "name": "Combo (compre junto)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Mostra este produto + o primeiro produto complementar configurado no app Search & Discovery. Sem produto complementar, o bloco não aparece. A economia exibida é o desconto que os próprios produtos já têm (preço de/por) — não há desconto extra de combo."
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "default": "Combos",
+          "label": "Etiqueta",
+          "info": "A pílula preta acima do card. Deixe em branco para esconder."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Leve os dois juntos",
+          "label": "Título"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "default": "A combinação perfeita para o seu perfume",
+          "label": "Subtítulo"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "default": "Adicionar à sacola",
+          "label": "Texto do botão"
+        }
+      ]
+    },
+    {
+      "type": "cmx_delivery",
+      "name": "Entrega e retirada",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Painel informativo de duas colunas. Uma coluna sem título não aparece — apague o título para usar só uma."
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Cor de fundo",
+          "default": "#fdf6f7"
+        },
+        {
+          "type": "header",
+          "content": "Coluna da esquerda"
+        },
+        {
+          "type": "select",
+          "id": "icon_1",
+          "options": [
+            { "value": "none", "label": "Sem ícone" },
+            { "value": "truck", "label": "Caminhão" },
+            { "value": "box", "label": "Caixa" },
+            { "value": "plane", "label": "Avião" },
+            { "value": "stopwatch", "label": "Cronômetro" },
+            { "value": "map_pin", "label": "Localização" },
+            { "value": "lock", "label": "Cadeado" },
+            { "value": "return", "label": "Devolução" },
+            { "value": "price_tag", "label": "Etiqueta de preço" }
+          ],
+          "default": "truck",
+          "label": "Ícone"
+        },
+        {
+          "type": "text",
+          "id": "title_1",
+          "default": "Opções de entrega",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "text_1",
+          "default": "<p>Descreva aqui os seus prazos e valores de frete.</p>",
+          "label": "Texto"
+        },
+        {
+          "type": "text",
+          "id": "link_label_1",
+          "default": "Informações de entrega",
+          "label": "Texto do link"
+        },
+        {
+          "type": "url",
+          "id": "link_url_1",
+          "label": "Link",
+          "info": "O link só aparece se tiver texto e destino preenchidos."
+        },
+        {
+          "type": "header",
+          "content": "Coluna da direita"
+        },
+        {
+          "type": "select",
+          "id": "icon_2",
+          "options": [
+            { "value": "none", "label": "Sem ícone" },
+            { "value": "truck", "label": "Caminhão" },
+            { "value": "box", "label": "Caixa" },
+            { "value": "plane", "label": "Avião" },
+            { "value": "stopwatch", "label": "Cronômetro" },
+            { "value": "map_pin", "label": "Localização" },
+            { "value": "lock", "label": "Cadeado" },
+            { "value": "return", "label": "Devolução" },
+            { "value": "price_tag", "label": "Etiqueta de preço" }
+          ],
+          "default": "map_pin",
+          "label": "Ícone"
+        },
+        {
+          "type": "text",
+          "id": "title_2",
+          "default": "Retirada na loja",
+          "label": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "text_2",
+          "default": "<p>Descreva aqui como funciona a retirada.</p>",
+          "label": "Texto"
+        },
+        {
+          "type": "text",
+          "id": "link_label_2",
+          "default": "Escolher loja",
+          "label": "Texto do link"
+        },
+        {
+          "type": "url",
+          "id": "link_url_2",
+          "label": "Link",
+          "info": "O link só aparece se tiver texto e destino preenchidos."
+        }
+      ]
     },
     {
       "type": "text",

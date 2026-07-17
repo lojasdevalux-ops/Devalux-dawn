@@ -1,0 +1,41 @@
+{%- comment -%}
+  Um produto dentro do combo.
+
+  Accepts:
+  - bundle_product: {Object} produto
+  - bundle_variant: {Object} variante usada para preço e para o carrinho
+
+  Usage:
+  {% render 'cmx-bundle-item', bundle_product: product, bundle_variant: variant %}
+{%- endcomment -%}
+{%- liquid
+  assign item_save = 0
+  if bundle_variant.compare_at_price > bundle_variant.price
+    assign item_save = bundle_variant.compare_at_price | minus: bundle_variant.price
+  endif
+-%}
+<div class="cmx-bundle__item">
+  {%- if bundle_product.featured_image -%}
+    <img
+      class="cmx-bundle__img"
+      src="{{ bundle_product.featured_image | image_url: width: 200 }}"
+      alt="{{ bundle_product.featured_image.alt | escape }}"
+      width="100"
+      height="100"
+      loading="lazy"
+    >
+  {%- endif -%}
+  <div class="cmx-bundle__info">
+    {%- if bundle_product.vendor != blank -%}
+      <span class="cmx-bundle__vendor">{{ bundle_product.vendor | escape }}</span>
+    {%- endif -%}
+    <a class="cmx-bundle__name" href="{{ bundle_product.url }}">{{ bundle_product.title | escape }}</a>
+    {%- unless bundle_variant.title contains 'Default' -%}
+      <span class="cmx-bundle__variant">{{ bundle_variant.title | escape }}</span>
+    {%- endunless -%}
+    <span class="cmx-bundle__price">{{ bundle_variant.price | money }}</span>
+    {%- if item_save > 0 -%}
+      <span class="cmx-bundle__save">Economize {{ item_save | money }}</span>
+    {%- endif -%}
+  </div>
+</div>
