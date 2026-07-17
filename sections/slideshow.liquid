@@ -98,7 +98,7 @@
   {%- endif -%}
 
   <div
-    class="slideshow banner banner--{{ section.settings.slide_height }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+    class="slideshow banner banner--{{ section.settings.slide_height }} grid grid--1-col slider slider--everywhere{% if section.settings.show_text_below %} banner--mobile-bottom{% endif %}{% if section.blocks.first.settings.image == blank and section.blocks.first.settings.video == blank %} slideshow--placeholder{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
     id="Slider-{{ section.id }}"
     aria-live="polite"
     aria-atomic="true"
@@ -120,8 +120,22 @@
         aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
         tabindex="-1"
       >
-        <div class="slideshow__media banner__media media{% if block.settings.image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
-          {%- if block.settings.image -%}
+        <div class="slideshow__media banner__media media{% if block.settings.image == blank and block.settings.video == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' and block.settings.video == blank %} animate--{{ section.settings.image_behavior }}{% endif %}">
+          {%- comment -%}
+            Vídeo tem prioridade sobre a imagem; a imagem vira o poster
+            (primeiro quadro) enquanto o vídeo carrega.
+          {%- endcomment -%}
+          {%- if block.settings.video != blank -%}
+            {{
+              block.settings.video
+              | video_tag:
+                image_size: '1920x',
+                autoplay: true,
+                loop: block.settings.enable_video_looping,
+                controls: false,
+                muted: true
+            }}
+          {%- elsif block.settings.image -%}
             {%- liquid
               assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
               if section.settings.image_behavior == 'ambient'
@@ -394,6 +408,18 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.slideshow.blocks.slide.settings.image.label"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Vídeo",
+          "info": "Se preenchido, substitui a imagem neste slide. O vídeo toca sozinho e sem som (exigência dos navegadores para autoplay). Mantenha a imagem preenchida: ela é usada como primeiro quadro enquanto o vídeo carrega."
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_video_looping",
+          "default": true,
+          "label": "Repetir vídeo continuamente"
         },
         {
           "type": "range",

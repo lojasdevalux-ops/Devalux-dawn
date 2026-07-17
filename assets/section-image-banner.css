@@ -490,3 +490,11 @@
     color: currentColor;
   }
 }
+
+/* Vídeo no slide: base.css só aplica object-fit a `.media > img`, então sem
+   isto o vídeo estica e distorce em vez de preencher o slide. */
+.slideshow__media > video,
+.banner__media > video {
+  object-fit: cover;
+  object-position: center center;
+}
