@@ -94,5 +94,30 @@
         </div>
       </div>
     </div>
+  {%- elsif request.design_mode -%}
+    {%- comment -%} Diagnóstico temporário: só no editor de temas {%- endcomment -%}
+    <div class="cmx-bundle__debug">
+      <strong>Combo não exibido — diagnóstico:</strong>
+      <br>1. Metafield complementares:
+      {%- if comp_list == nil -%}
+        NÃO ENCONTRADO (app não configurou este produto)
+      {%- else -%}
+        encontrado, {{ comp_list.size }} produto(s)
+      {%- endif -%}
+      <br>2. Produto atual disponível (product.available): {{ product.available }}
+      <br>3. Parceiro escolhido:
+      {%- if partner == nil -%}
+        nenhum
+        {%- if comp_list != nil %} (a lista existe, mas nenhum item passou: precisa estar disponível e ser diferente deste produto){% endif -%}
+      {%- else -%}
+        {{ partner.title }}
+      {%- endif -%}
+      {%- if comp_list != nil -%}
+        <br>4. Itens da lista:
+        {%- for c in comp_list -%}
+          <br>&nbsp;&nbsp;— {{ c.title }} | available: {{ c.available }}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
   {%- endif -%}
 </cmx-bundle>
