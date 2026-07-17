@@ -23,6 +23,32 @@
       }
     }
   {%- endstyle -%}
+{%- elsif section.settings.slide_height == 'custom' -%}
+  {%- comment -%}
+    Mesmo espaçador ::before do modo "adaptar à imagem", mas com altura fixa
+    em vez de proporção: o banner ignora as dimensões da imagem, que é
+    recortada por object-fit: cover.
+  {%- endcomment -%}
+  {%- style -%}
+    @media screen and (max-width: 749px) {
+      #Slider-{{ section.id }}::before,
+      #Slider-{{ section.id }} .media::before,
+      #Slider-{{ section.id }}:not(.banner--mobile-bottom) .banner__content::before {
+        height: {{ section.settings.height_mobile }}px;
+        content: '';
+        display: block;
+      }
+    }
+
+    @media screen and (min-width: 750px) {
+      #Slider-{{ section.id }}::before,
+      #Slider-{{ section.id }} .media::before {
+        height: {{ section.settings.height_desktop }}px;
+        content: '';
+        display: block;
+      }
+    }
+  {%- endstyle -%}
 {%- endif -%}
 
 <slideshow-component
@@ -319,10 +345,36 @@
         {
           "value": "large",
           "label": "t:sections.slideshow.settings.slide_height.options__4.label"
+        },
+        {
+          "value": "custom",
+          "label": "Personalizada (altura fixa)"
         }
       ],
       "default": "medium",
       "label": "t:sections.slideshow.settings.slide_height.label"
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "min": 200,
+      "max": 900,
+      "step": 10,
+      "unit": "px",
+      "default": 480,
+      "label": "Altura no computador",
+      "info": "Só é usada quando a altura acima for \"Personalizada\". A imagem é recortada para preencher, sem esticar."
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "min": 150,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 320,
+      "label": "Altura no celular",
+      "info": "Só é usada quando a altura acima for \"Personalizada\"."
     },
     {
       "type": "select",
